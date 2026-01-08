@@ -45,7 +45,7 @@
 /* Hero Section with Background Image */
 .hero-section {
   position: relative;
-  height: 680px; /* adjust height as needed */
+  height: 659px; /* adjust height as needed */
   background: url('college.jpeg') no-repeat center center/cover;
 }
 
