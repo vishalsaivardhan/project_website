@@ -1,34 +1,30 @@
-/* Reset */
-* {
+*{
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
 }
-
-/* Navbar */
-.navbar {
+.header{
+   background-color: #003366;   /* Deep blue  #003366*/
+  color: hsl(0, 0%, 100%);                 /* White text */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #003366; /* Dark blue */
-  padding: 0.8rem 2rem;
-  color: #fff;
+  padding: 2rem 3rem;
 }
-
-/* Logo */
+/* Logo styling */
 .logo {
   display: flex;
   align-items: center;
-  font-size: 1.2rem;
+  font-size: 2rem;
   font-weight: bold;
 }
 
 .logo img {
   height: 40px;
-  margin-right: 10px;
+  margin-right: 20px;
 }
 
-/* Navigation Links */
+/* Navigation links */
 .nav-links {
   list-style: none;
   display: flex;
