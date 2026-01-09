@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuppam Engineering College | AI & ML Dept</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- 1. CORE VARIABLES & RESET --- */
+        :root {
+            --bg-dark: #004e9c;         /*#020617;*/
+            --card-bg: rgba(30, 41, 59, 0.4);   /* rgba(30, 41, 59, 0.4);*/
+            --card-border: rgba(255, 255, 255, 0.08);  /*rgba(255, 255, 255, 0.08);*/
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-primary: #3b82f6; /* Blue */
+            --accent-glow: #60a5fa;
+            --accent-gold: #f59e0b;
+            --accent-teal: #14b8a6; /* For supporting staff */
+            --gradient-main: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Poppins", sans-serif;}
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(59, 130, 246, 0.08) 0%, transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.08) 0%, transparent 25%);
+        }
+
+        /* --- 2. LANDING / HERO SECTION --- */
+        #hero-section {
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0; left: 0;
+            z-index: 50;
+            background: var(--bg-dark);
+            transition: transform 0.8s ease-in-out, opacity 0.8s ease;
+        }
+
+        #hero-section.slide-up {
+            transform: translateY(-100%);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .college-name {
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+            font-weight: 700;
+            animation: fadeIn 1s ease;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 800;
+            text-align: center;
+            background: linear-gradient(to right, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            letter-spacing: -2px;
+            line-height: 1.1;
+            animation: fadeInDown 1.2s ease;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            font-weight: 300;
+            animation: fadeIn 1.5s ease;
+        }
+
+        /* GLOWING BUTTON */
+        .enter-btn {
+            position: relative;
+            padding: 18px 45px;
+            background: transparent;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 50px;
+            cursor: pointer;
+            overflow: hidden;
+            transition: var(--transition);
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
+        }
+
+        .enter-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--gradient-main);
+            opacity: 0.2;
+            transition: opacity 0.3s;
+            z-index: -1;
+        }
+
+        .enter-btn:hover {
+            border-color: var(--accent-glow);
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.6);
+            transform: scale(1.05);
+        }
+        
+        .enter-btn:hover::before { opacity: 1; }
+
+        /* --- 3. MAIN CONTENT (GRID) --- */
+        main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s ease 0.5s, transform 1s ease 0.5s;
+        }
+
+        main.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .main-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        .main-header h1 {
+            color: var(--accent-gold);
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .main-header h2 {
+            font-size: 3rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .section-header {
+            margin-top: 5rem;
+            margin-bottom: 2.5rem;
+            padding-left: 1.5rem;
+            border-left: 5px solid var(--accent-primary);
+            display: flex;
+            align-items: center;
+        }
+
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: white;
+            margin-right: 15px;
+        }
+        
+        .section-line {
+            height: 1px;
+            background: rgba(255,255,255,0.1);
+            flex-grow: 1;
+        }
+
+        .section-header.gold-border { border-left-color: var(--accent-gold); }
+        .section-header.teal-border { border-left-color: var(--accent-teal); }
+
+        .faculty-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2.5rem;
+        }
+
+        /* --- 4. CARDS --- */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: var(--transition);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(59, 130, 246, 0.4);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .card.hod-card {
+            background: linear-gradient(160deg, rgba(30, 41, 59, 0.6), rgba(15, 23, 42, 0.9));
+            border-color: rgba(245, 158, 11, 0.3);
+        }
+        
+        .card.support-card {
+            border-color: rgba(20, 184, 166, 0.2);
+        }
+        .card.support-card:hover {
+            border-color: rgba(20, 184, 166, 0.6);
+            box-shadow: 0 20px 40px rgba(20, 184, 166, 0.2);
+        }
+
+        .card-img-box {
+            height: 260px;
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .card:hover .card-img-box img { transform: scale(1.1); }
+
+        .card-overlay {
+            position: absolute;
+            bottom: 0; left: 0; width: 100%;
+            padding: 1rem;
+            background: linear-gradient(to top, rgba(2,6,23,0.9), transparent);
+            display: flex;
+            justify-content: center;
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .card:hover .card-overlay { opacity: 1; }
+
+        .card-body { padding: 1.5rem; text-align: center; flex-grow: 1; }
+
+        .card-name {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-role {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--accent-glow);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+        
+        .card.support-card .card-role { color: var(--accent-teal); }
+
+        /* Mini tags on card for "Best Things" */
+        .card-highlights {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 5px;
+            margin-top: 10px;
+        }
+        
+        .mini-tag {
+            font-size: 0.7rem;
+            background: rgba(255,255,255,0.05);
+            padding: 4px 8px;
+            border-radius: 4px;
+            color: var(--text-muted);
+        }
+
+        .hod-badge {
+            position: absolute;
+            top: 15px; right: 15px;
+            background: var(--accent-gold);
+            color: #000;
+            font-weight: 800;
+            padding: 5px 12px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            z-index: 2;
+            box-shadow: 0 5px 15px rgba(245, 158, 11, 0.4);
+        }
+
+        /* --- 5. MODAL (DETAILS) --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(2, 6, 23, 0.95);
+            backdrop-filter: blur(8px);
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .modal-overlay.active { opacity: 1; pointer-events: all; }
+
+        .modal-content {
+            width: 90%;
+            max-width: 1000px;
+            height: 85vh;
+            background: #0f172a;
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 50px 100px -20px rgba(0,0,0,0.8);
+            transform: scale(0.95);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .modal-overlay.active .modal-content { transform: scale(1); }
+
+        @media(min-width: 900px) {
+            .modal-content { flex-direction: row; }
+        }
+
+        /* Modal Sidebar (Left) */
+        .modal-side {
+            flex: 1;
+            background: #1e293b;
+            padding: 3rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            border-right: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .modal-avatar {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--accent-primary);
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.3);
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-btn {
+            margin-top: auto;
+            width: 100%;
+            padding: 12px;
+            background: var(--accent-primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+        .modal-btn:hover { background: var(--accent-glow); }
+
+        /* Modal Main (Right) */
+        .modal-main {
+            flex: 2;
+            padding: 3rem;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px; right: 25px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 2rem;
+            cursor: pointer;
+            transition: color 0.2s;
+            z-index: 10;
+        }
+        .close-btn:hover { color: white; }
+
+        /* Data Styling */
+        .data-group { margin-bottom: 2rem; }
+        .data-label {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+        
+        .list-item {
+            background: rgba(255,255,255,0.03);
+            margin-bottom: 8px;
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 3px solid var(--accent-primary);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #cbd5e1;
+            transition: background 0.2s;
+        }
+        .list-item:hover { background: rgba(255,255,255,0.06); }
+
+        .tag {
+            display: inline-block;
+            padding: 6px 14px;
+            background: rgba(59, 130, 246, 0.15);
+            color: var(--accent-glow);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin: 0 5px 5px 0;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+        
+        .highlight-tag {
+             background: rgba(16, 185, 129, 0.15);
+             color: #34d399;
+             border-color: rgba(16, 185, 129, 0.3);
+        }
+
+        /* Responsive */
+        @media(max-width: 768px) {
+            .hero-title { font-size: 2.5rem; }
+            .section-header h2 { font-size: 1.8rem; }
+            .college-name { font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <section id="hero-section">
+        <div class="college-name">Kuppam Engineering College</div>
+        <h1 class="hero-title">Department of <br>AI & Machine Learning</h1>
+        <p class="hero-subtitle">Innovating the Future, Today.</p>
+        <button class="enter-btn" onclick="revealFaculty()">
+            <i class="fas fa-users"></i> Meet Our Faculty
+        </button>
+    </section>
+
+    <main id="main-container">
+        
+        <div class="main-header">
+            <h1>Kuppam Engineering College</h1>
+            <h2>Faculty Directory</h2>
+        </div>
+
+        <div class="section-header gold-border">
+            <h2>Head of Department</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="faculty-grid" id="hod-grid"></div>
+
+        <div class="section-header">
+            <h2>Dept. Faculties</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="faculty-grid" id="staff-grid"></div>
+
+        <div class="section-header teal-border">
+            <h2>Supporting Faculties</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="faculty-grid" id="support-grid"></div>
+
+    </main>
+
+    <div class="modal-overlay" id="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()">&times;</button>
+            
+            <div class="modal-side">
+                <img src="" alt="" class="modal-avatar" id="mImg">
+                <h2 id="mName" style="font-family: 'Playfair Display'; color: white; margin-bottom: 5px; line-height: 1.2;"></h2>
+                <div id="mRole" style="color: var(--accent-primary); font-weight: 600; margin-bottom: 2rem;"></div>
+                
+                <a href="#" id="mEmail" class="modal-btn">
+                    <i class="fas fa-envelope"></i> Send Email
+                </a>
+            </div>
+
+            <div class="modal-main" id="mBody">
+                </div>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. DATA SOURCE ---
+        const facultyData = [
+            // --- HOD ---
+            {
+                id: 1,
+                type: 'hod',
+                name: "A Ravindra Kumar",
+                role: "Associate Professor & HOD",
+                email: "ravindraavula@kec.ac.in",
+                image: "A Ravindra kumar.jpeg", 
+                education: [
+                    "Ph.D (Pursuing): Data Mining - JNTUA Anantapur",
+                    "M.Tech: Computer Science & Engineering",
+                    "B.Tech: Computer Science & Engineering"
+                ],
+                highlights: ["Visionary Leader", "Research Oriented", "Student Mentor"],
+                memberships: ["ISTE Life Member 2008", "IAENG Membership: 111851"],
+                publications: [
+                    "Performance of Public Health Monitoring on Social Media (JETIR 2019)",
+                    "Mapreduce Job Performance Analysis in Hadoop (IJSETR 2015)",
+                    "Advanced Approach for Detecting Behavior-Based Intranet Attacks (ICSSA 2025)"
+                ],
+                patents: [
+                    "INTELLIGENT POSITIONING FOR HIGH-SPEED TRAINS (App: 202541002811)",
+                    "Website for Kuppam Tourism Development"
+                ],
+                books: [
+                    "Deep Learning Techniques for Beginners (2024)",
+                    "Applications of Machine Learning (Geh Press)"
+                ],
+                events: [
+                    "Organized National Symposium AItheronML 2025",
+                    "MOU with Valutsphere AI Technologies Pvt Ltd"
+                ]
+            },
+            // --- CORE FACULTY ---
+            {
+                id: 2,
+                type: 'core',
+                name: "Althaf Hussain H B",
+                role: "Assistant Professor",
+                email: "althaf@kec.ac.in",
+                image: "Althaf Hussain H B.jpeg",
+                education: ["M.Tech (2008)", "M.Sc (2004)", "B.Sc: Computer Science"],
+                memberships: ["LMISTE"],
+                highlights: ["Generative AI Expert", "Hands-on Training Specialist", "Approachability: 10/10"],
+                publications: ["Intranet Attacks Detection using ML (ICSSA 2025)"],
+                workshops: ["FDP on Data Science with Gen AI", "IoT Workshops", "Redefining Innovation Industry 5.0"]
+            },
+            {
+                id: 3,
+                type: 'core',
+                name: "Mrs. M. Sampoorna",
+                role: "Assistant Professor",
+                email: "msampoorna@kec.ac.in",
+                image: "M Sampoorna.jpeg",
+                education: ["M.Tech: Computer Science", "B.Tech: Computer Science"],
+                highlights: ["Highly Supportive", "Excellent Conceptual Clarity", "Student-Centric Teaching"]
+            },
+            {
+                id: 4,
+                type: 'core',
+                name: "Mr. K. Divya Prakash",
+                role: "Assistant Professor",
+                email: "divyaprakashk@kec.ac.in",
+                image: "K Divya Prakash.jpeg",
+                education: ["MCA", "M.Sc (Computer Science)"],
+                highlights: ["Quantum Computing Enthusiast", "Interactive Sessions", "Project Guide"],
+                workshops: ["Quantum Technologies & Applications (JNTUA)", "Cybersecurity & ML"]
+            },
+            {
+                id: 5,
+                type: 'core',
+                name: "Mr. M. Venkatadri",
+                role: "Assistant Professor",
+                email: "mvenkatadri@kec.ac.in",
+                image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                education: ["MCA - Computer Science"],
+                highlights: ["Practical Approach", "Dedicated Mentor", "Highly Interactive"]
+            },
+            {
+                id: 6,
+                type: 'core',
+                name: "Mrs. K. Durga",
+                role: "Assistant Professor",
+                email: "kdurga@kec.ac.in",
+                image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                education: ["M.Tech: CSE", "B.Tech: CSE"],
+                highlights: ["Clear Explanations", "Supportive Nature", "Encourages Innovation"]
+            },
+            {
+                id: 7,
+                type: 'core',
+                name: "Mr. L. Sai Krishna",
+                role: "Assistant Professor",
+                email: "saikrishnal@kec.ac.in",
+                image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                education: ["M.Tech: CSE", "B.Tech: CSE"],
+                highlights: ["Tech Savvy", "Friendly & Approachable", "Career Guidance Expert"]
+            },
+            // --- SUPPORTING FACULTY (Generated Info) ---
+            {
+                id: 101,
+                type: 'support',
+                name: "Mr. R. Rajesh",
+                role: "Senior Lab Technician",
+                email: "rajesh.lab@kec.ac.in",
+                image: "https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                education: ["Diploma in Computer Science"],
+                highlights: ["Hardware Expert", "Always Available", "Fast Troubleshooting"],
+                bio: "Ensures all AI labs run smoothly with zero downtime. Expert in server maintenance."
+            },
+            {
+                id: 102,
+                type: 'support',
+                name: "Ms. S. Kavitha",
+                role: "Lab Instructor",
+                email: "kavitha.s@kec.ac.in",
+                image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                education: ["B.Sc Computers"],
+                highlights: ["Patient Coder", "Python Helper", "Student Favorite"],
+                bio: "Assists students during practical sessions, specifically for Python and Data Structures."
+            },
+            {
+                id: 103,
+                type: 'support',
+                name: "Mr. B. Suresh",
+                role: "System Administrator",
+                email: "suresh.admin@kec.ac.in",
+                image: "https://images.unsplash.com/photo-1566492031773-4f4e44671857?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                education: ["B.Tech IT"],
+                highlights: ["Network Wizard", "Highly Efficient", "Cybersecurity Support"],
+                bio: "Manages the department network infrastructure and software licensing."
+            },
+            {
+                id: 104,
+                type: 'support',
+                name: "Mrs. P. Lakshmi",
+                role: "Teaching Assistant",
+                email: "lakshmi.ta@kec.ac.in",
+                image: "https://images.unsplash.com/photo-1554151228-14d9def656ec?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                education: ["M.Sc Computer Science"],
+                highlights: ["Doubt Solver", "Exam Coordinator", "Highly Organized"],
+                bio: "Helps organize internal assessments and supports students with project documentation."
+            },
+            {
+                id: 105,
+                type: 'support',
+                name: "Mr. K. Manoj",
+                role: "Technical Assistant",
+                email: "manoj.tech@kec.ac.in",
+                image: "https://images.unsplash.com/photo-1600878459196-48480761698b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                education: ["Diploma in ECE"],
+                highlights: ["IoT Setup Expert", "Friendly", "Creative Problem Solver"],
+                bio: "Specializes in setting up IoT kits and sensors for AI robotics projects."
+            }
+        ];
+
+        // --- 2. LOGIC ---
+        
+        function revealFaculty() {
+            const hero = document.getElementById('hero-section');
+            const main = document.getElementById('main-container');
+            
+            hero.classList.add('slide-up');
+            main.classList.add('visible');
+        }
+
+        // Render Cards
+        function init() {
+            const hodGrid = document.getElementById('hod-grid');
+            const staffGrid = document.getElementById('staff-grid');
+            const supportGrid = document.getElementById('support-grid');
+
+            facultyData.forEach(member => {
+                const card = createCardHTML(member);
+                if(member.type === 'hod') {
+                    hodGrid.innerHTML += card;
+                } else if (member.type === 'core') {
+                    staffGrid.innerHTML += card;
+                } else {
+                    supportGrid.innerHTML += card;
+                }
+            });
+        }
+
+        function createCardHTML(data) {
+            const isHod = data.type === 'hod';
+            const isSupport = data.type === 'support';
+            
+            let badge = '';
+            let cardClass = '';
+
+            if (isHod) {
+                badge = `<span class="hod-badge">HOD</span>`;
+                cardClass = 'hod-card';
+            } else if (isSupport) {
+                cardClass = 'support-card';
+            }
+
+            // Generate Mini Highlights for Card
+            let highlightsHTML = '';
+            if(data.highlights) {
+                highlightsHTML = `<div class="card-highlights">` + 
+                    data.highlights.slice(0, 3).map(h => `<span class="mini-tag">${h}</span>`).join('') + 
+                    `</div>`;
+            }
+
+            return `
+                <div class="card ${cardClass}" onclick="openModal(${data.id})">
+                    <div class="card-img-box">
+                        <img src="${data.image}" alt="${data.name}">
+                        ${badge}
+                        <div class="card-overlay">
+                            <span style="color:white; font-weight:600; text-transform:uppercase; letter-spacing:1px; font-size:0.8rem;">
+                                <i class="fas fa-expand"></i> View Profile
+                            </span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-name">${data.name}</h3>
+                        <div class="card-role">${data.role}</div>
+                        ${highlightsHTML}
+                    </div>
+                </div>
+            `;
+        }
+
+        // --- 3. MODAL HANDLERS ---
+        function openModal(id) {
+            const member = facultyData.find(m => m.id === id);
+            if(!member) return;
+
+            // Fill Sidebar
+            document.getElementById('mImg').src = member.image;
+            document.getElementById('mName').innerText = member.name;
+            document.getElementById('mRole').innerText = member.role;
+            document.getElementById('mEmail').href = `mailto:${member.email}`;
+            
+            // Set Color Theme based on type
+            const roleEl = document.getElementById('mRole');
+            const btnEl = document.getElementById('mEmail');
+            if(member.type === 'support') {
+                roleEl.style.color = 'var(--accent-teal)';
+                btnEl.style.background = 'var(--accent-teal)';
+                document.querySelector('.modal-avatar').style.borderColor = 'var(--accent-teal)';
+            } else {
+                roleEl.style.color = 'var(--accent-primary)';
+                btnEl.style.background = 'var(--accent-primary)';
+                document.querySelector('.modal-avatar').style.borderColor = 'var(--accent-primary)';
+            }
+
+            // Build Main Content Dynamically
+            const body = document.getElementById('mBody');
+            body.innerHTML = ''; 
+
+            const addSection = (title, items, isTag = false, isHighlight = false) => {
+                if(!items || items.length === 0) return;
+                
+                let html = `<div class="data-group"><div class="data-label">${title}</div><div>`;
+                items.forEach(item => {
+                    if(isTag) {
+                        const tagClass = isHighlight ? 'tag highlight-tag' : 'tag';
+                        html += `<span class="${tagClass}">${item}</span>`;
+                    } else {
+                        html += `<div class="list-item">${item}</div>`;
+                    }
+                });
+                html += `</div></div>`;
+                body.innerHTML += html;
+            };
+            
+            // Add Bio if available (mostly for support staff)
+            if(member.bio) {
+                body.innerHTML += `<div class="data-group"><div class="data-label">About</div><p style="color:#cbd5e1; line-height:1.6;">${member.bio}</p></div>`;
+            }
+
+            addSection("Key Highlights", member.highlights, true, true);
+            addSection("Education", member.education);
+            addSection("Professional Memberships", member.memberships, true);
+            addSection("Patents & Innovations", member.patents);
+            addSection("Publications", member.publications);
+            addSection("Books Authored", member.books);
+            addSection("Workshops & Events", member.workshops || member.events);
+
+            document.getElementById('modal').classList.add('active');
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.getElementById('modal').addEventListener('click', (e) => {
+            if(e.target.id === 'modal') closeModal();
+        });
+
+        document.addEventListener('DOMContentLoaded', init);
+
+    </script>
+</body>
+</html>
