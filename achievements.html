@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+]<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,6 +10,7 @@
             --accent: #f2a900;
             --text: #333;
             --bg: #fdfdfd;
+            --brand-blue: #004e9c; /* Your requested color */
         }
 
         body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; padding: 20px; color: var(--text); }
@@ -18,19 +19,17 @@
         header { text-align: center; margin-bottom: 50px; }
         header h1 { font-size: 2.5rem; color: var(--primary); margin-bottom: 10px; }
 
-        /* Search Bar */
         .search-box { position: relative; max-width: 600px; margin: 0 auto 40px auto; }
         #searchBar {
             width: 100%;
             padding: 15px 25px;
             border-radius: 50px;
-            border: 1px solid  #004e9c;
+            border: 1px solid var(--brand-blue);
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
             font-size: 1rem;
             outline: none;
         }
 
-        /* Grid Layout */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -51,30 +50,27 @@
 
         .card img { width: 100%; height: 250px; object-fit: cover; }
 
-        .card-info { padding: 15px; text-align: center; background: white; }
-        .card-info h3 { margin: 10px 0; color: var(--primary); }
+        /* UPDATED SECTION */
+        .card-info { padding: 15px; text-align: center; background: #ffffff; } 
+        .card-info h3 { margin: 10px 0; color: #004e9c; } /* Text color updated */
 
-        /* Modal Overlay */
         .modal {
             display: none;
             position: fixed;
             z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
             background: rgba(0,0,0,0.85);
             backdrop-filter: blur(8px);
         }
 
-        /* Modal Content - Two Column Layout */
         .modal-content {
             background: #ffffff;
             width: 90%;
             max-width: 900px;
             margin: 5vh auto;
             border-radius: 20px;
-            display: flex; /* Flexbox for image + text side-by-side */
+            display: flex;
             overflow: hidden;
             animation: fadeIn 0.4s ease;
             position: relative;
@@ -89,15 +85,14 @@
 
         .close-btn {
             position: absolute;
-            top: 20px;
-            right: 25px;
+            top: 20px; right: 25px;
             font-size: 35px;
             cursor: pointer;
             color: #aaa;
             z-index: 10;
         }
 
-        .rich-content h2 { color: var(--primary); font-size: 2rem; margin-top: 0; }
+        .rich-content h2 { color: var(--brand-blue); font-size: 2rem; margin-top: 0; }
         .rich-content .tag { 
             background: var(--accent); 
             color: white; 
@@ -108,7 +103,6 @@
         }
         .rich-content p { line-height: 1.8; margin-top: 20px; font-size: 1.1rem; }
 
-        /* Mobile Responsive */
         @media (max-width: 768px) {
             .modal-content { flex-direction: column; width: 95%; margin: 2vh auto; }
             .modal-img-container { height: 250px; }
@@ -150,18 +144,17 @@
             <img id="modalImg" src="" alt="Achievement Large">
         </div>
         <div class="modal-text-container">
-            <div id="modalBody" class="rich-content">
-                </div>
+            <div id="modalBody" class="rich-content"></div>
         </div>
     </div>
-</div>
+</div> 
 
 <script>
     const data = {
         a1: {
-            title: "Global Innovation 2026",
+            title: "Quiz Winners",
             tag: "Award",
-            img: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80",
+            img: "quiz winners.jpeg",
             desc: "Our team was recognized for developing a groundbreaking AI-driven healthcare system. This award reflects 3 years of rigorous research and community testing across five continents."
         },
         a2: {
@@ -175,6 +168,12 @@
             tag: "Publication",
             img: "https://images.unsplash.com/photo-1507537297725-24a1c029d3ca?auto=format&fit=crop&w=800&q=80",
             desc: "Our latest study on 'Quantum Computing Ethics' was published in the high-impact journal 'Nature Science'. It explores the socio-economic boundaries of future tech."
+        },
+        a4: {
+            title: "Published Research Paper",
+            tag: "Publication",
+            img: "https://images.unsplash.com/photo-1507537297725-24a1c029d3ca?auto=format&fit=crop&w=800&q=80",
+            desc: "Our latest study on 'Quantum Computing Ethics' was published in the high-impact journal 'Nature Science'. It explores the socio-economic boundaries of future tech."
         }
     };
 
@@ -183,10 +182,10 @@
         document.getElementById('modalImg').src = item.img;
         document.getElementById('modalBody').innerHTML = `
             <span class="tag">${item.tag}</span>
-            <h2>${item.title}</h2>
+            <h2 style="color: #004e9c;">${item.title}</h2>
             <hr style="border:0; border-top:1px solid #eee; margin: 20px 0;">
             <p>${item.desc}</p>
-            <button style="padding: 12px 24px; background: var(--primary); color: white; border: none; border-radius: 5px; cursor: pointer; margin-top: 20px;">Read Full Case Study</button>
+            <button style="padding: 12px 24px; background: #004e9c; color: white; border: none; border-radius: 5px; cursor: pointer; margin-top: 20px;">Read Full Case Study</button>
         `;
         document.getElementById('achievementModal').style.display = "block";
     }
