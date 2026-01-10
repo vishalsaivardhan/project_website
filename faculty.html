@@ -99,7 +99,7 @@
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 2px;
-            border: 1px solid rgba(255, 171, 25, 0.2)                      /*rgba(255,255,255,0.2);*/
+            border: 1px solid rgba(255, 171, 25, 0.2)                      /*rgba(255,255,255,0.2);*/  /*rgba(255, 171, 25, 0.2)*/
             border-radius: 50px;
             cursor: pointer;
             overflow: hidden;
@@ -480,7 +480,11 @@
         <div class="faculty-grid" id="support-grid"></div>
 
     </main>
-
+    <div class="search-container" style="max-width: 600px; margin: 0 auto 3rem auto; position: relative;">
+    <input type="text" id="facultySearch" placeholder="Search by name, role, or expertise..." 
+           style="width: 100%; padding: 15px 25px; border-radius: 50px; border: 1px solid var(--card-border); background: var(--card-bg); color: white; outline: none; backdrop-filter: blur(10px);">
+    <i class="fas fa-search" style="position: absolute; right: 25px; top: 50%; transform: translateY(-50%); color: var(--text-muted);"></i>
+</div>
     <div class="modal-overlay" id="modal">
         <div class="modal-content">
             <button class="close-btn" onclick="closeModal()">&times;</button>
@@ -501,6 +505,21 @@
     </div>
 
     <script>
+        // --- search bar ---//
+        document.getElementById('facultySearch').addEventListener('input', (e) => {
+    const term = e.target.value.toLowerCase();
+    const cards = document.querySelectorAll('.card');
+    
+    cards.forEach(card => {
+        const name = card.querySelector('.card-name').innerText.toLowerCase();
+        const role = card.querySelector('.card-role').innerText.toLowerCase();
+        if(name.includes(term) || role.includes(term)) {
+            card.style.display = 'flex';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+});
         // --- 1. DATA SOURCE ---
         const facultyData = [
             // --- HOD ---

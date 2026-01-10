@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KEC | AI & ML Faculty Directory</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #004e9c;
+            --card-bg: rgba(30, 41, 59, 0.4);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-primary: #3b82f6; 
+            --accent-glow: #60a5fa;
+            --accent-gold: #f59e0b; 
+            --accent-teal: #14b8a6; 
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Poppins", sans-serif;}
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at 15% 50%, rgba(59, 130, 246, 0.08) 0%, transparent 25%);
+        }
+
+        /* --- HERO SECTION --- */
+        #hero-section {
+            height: 100vh; width: 100%; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; position: fixed;
+            top: 0; left: 0; z-index: 50; background: var(--bg-dark);
+            transition: transform 0.8s ease-in-out, opacity 0.8s ease;
+        }
+        #hero-section.slide-up { transform: translateY(-100%); opacity: 0; pointer-events: none; }
+
+        .college-name { color: var(--accent-gold); letter-spacing: 3px; font-weight: 700; margin-bottom: 10px; text-transform: uppercase;}
+
+        .enter-btn {
+            padding: 18px 45px; 
+            background: var(--accent-gold); 
+            color: #000;
+            border: none; 
+            border-radius: 50px;
+            cursor: pointer; 
+            font-weight: 700; 
+            text-transform: uppercase;
+            letter-spacing: 2px; 
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+        }
+        .enter-btn:hover { 
+            transform: scale(1.05); 
+            box-shadow: 0 0 30px rgba(245, 158, 11, 0.6);
+            background: #ffb129; 
+        }
+
+        /* --- MAIN DIRECTORY --- */
+        main { max-width: 1400px; margin: 0 auto; padding: 4rem 2rem; opacity: 0; transform: translateY(50px); transition: 1s ease 0.5s; }
+        main.visible { opacity: 1; transform: translateY(0); }
+
+        .main-header { text-align: center; margin-bottom: 2rem; }
+        .main-header h2 { font-size: 3rem; color: white; }
+
+        .search-container { max-width: 600px; margin: 0 auto 4rem auto; position: relative; }
+        #facultySearch {
+            width: 100%; padding: 18px 25px; border-radius: 50px;
+            border: 1px solid var(--card-border); background: var(--card-bg);
+            color: white; outline: none; backdrop-filter: blur(10px);
+            font-size: 1rem; transition: 0.3s;
+        }
+        #facultySearch:focus { border-color: var(--accent-gold); box-shadow: 0 0 15px rgba(245, 158, 11, 0.2); }
+
+        /* Grid & Cards (LARGER IMAGES) */
+        .faculty-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2.5rem; margin-bottom: 4rem; }
+        
+        .section-header { margin: 3rem 0 2rem; padding-left: 1rem; border-left: 5px solid var(--accent-primary); display: flex; align-items: center; }
+        .section-header.gold-border { border-left-color: var(--accent-gold); }
+        .section-header.teal-border { border-left-color: var(--accent-teal); }
+        .section-line { height: 1px; background: rgba(255,255,255,0.1); flex-grow: 1; margin-left: 15px; }
+
+        .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 20px; overflow: hidden; cursor: pointer; transition: var(--transition); }
+        .card:hover { transform: translateY(-10px); border-color: var(--accent-gold); box-shadow: 0 15px 35px rgba(0,0,0,0.3); }
+        
+        /* INCREASED IMAGE BOX SIZE */
+        .card-img-box { height: 350px; overflow: hidden; background: #1e293b; }
+        .card-img-box img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s; object-position: center top; }
+        .card:hover .card-img-box img { transform: scale(1.08); }
+        
+        .card-body { padding: 1.8rem; text-align: center; }
+        .card-name { font-size: 1.4rem; margin-bottom: 8px; color: white; font-weight: 700; }
+        .card-role { color: var(--accent-glow); font-size: 0.9rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* --- MODAL --- */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(2,6,23,0.96); z-index: 100; display: none; justify-content: center; align-items: center; backdrop-filter: blur(8px); }
+        .modal-overlay.active { display: flex; }
+        .modal-content { width: 95%; max-width: 1000px; background: #0f172a; border-radius: 24px; display: flex; flex-direction: row; overflow: hidden; position: relative; border: 1px solid var(--card-border); }
+        .modal-side { flex: 1; background: #1e293b; padding: 2.5rem; text-align: center; display: flex; flex-direction: column; align-items: center; border-right: 1px solid var(--card-border); }
+        .modal-avatar { width: 200px; height: 200px; border-radius: 50%; object-fit: cover; border: 4px solid var(--accent-gold); margin-bottom: 1.5rem; box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
+        .modal-main { flex: 2; padding: 3rem; overflow-y: auto; max-height: 85vh; }
+        .modal-btn { display: block; width: 100%; padding: 16px; background: var(--accent-gold); color: #000; text-decoration: none; border-radius: 12px; font-weight: 700; margin-top: 20px; transition: 0.3s; text-align: center;}
+        .modal-btn:hover { background: #fff; transform: translateY(-2px); }
+        .close-btn { position: absolute; top: 20px; right: 25px; background: none; border: none; color: white; font-size: 3rem; cursor: pointer; z-index: 101; line-height: 1; }
+
+        .data-label { color: var(--accent-gold); font-weight: 700; margin-bottom: 15px; display: block; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px; text-transform: uppercase; font-size: 0.95rem; margin-top: 25px; }
+        .list-item { font-size: 1rem; margin-bottom: 10px; color: #cbd5e1; line-height: 1.5; display: flex; align-items: flex-start; }
+
+        @media (max-width: 850px) { 
+            .modal-content { flex-direction: column; } 
+            .modal-side { border-right: none; border-bottom: 1px solid var(--card-border); }
+            .modal-main { max-height: 50vh; padding: 2rem; } 
+            .main-header h2 { font-size: 2.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <section id="hero-section">
+        <div class="college-name">Kuppam Engineering College</div>
+        <h2 style="font-size:3.5rem; text-align:center; margin-bottom:30px; color: white;">Dept. of AI & Machine Learning</h2>
+        <button class="enter-btn" onclick="revealFaculty()">
+            <i class="fas fa-users" style="margin-right:10px"></i> Meet Our Faculty
+        </button>
+    </section>
+
+    <main id="main-container">
+        <div class="main-header">
+            <h2 id="directory-top">Faculty Directory</h2>
+        </div>
+
+        <div class="search-container">
+            <input type="text" id="facultySearch" placeholder="Search by name, expertise, or role...">
+            <i class="fas fa-search" style="position:absolute; right:20px; top:50%; transform:translateY(-50%); color:var(--text-muted)"></i>
+        </div>
+
+        <div class="section-header gold-border">
+            <h2 style="color:var(--accent-gold)">Head of Department</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="faculty-grid" id="hod-grid"></div>
+
+        <div class="section-header">
+            <h2>Department Faculty</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="faculty-grid" id="staff-grid"></div>
+
+        <div class="section-header teal-border">
+            <h2 style="color:var(--accent-teal)">Supporting Staff</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="faculty-grid" id="support-grid"></div>
+    </main>
+
+    <div class="modal-overlay" id="modal">
+        <button class="close-btn" onclick="closeModal()">&times;</button>
+        <div class="modal-content">
+            <div class="modal-side">
+                <img src="" id="mImg" class="modal-avatar">
+                <h3 id="mName" style="color:white; margin-bottom:5px;"></h3>
+                <p id="mRole" style="color:var(--accent-glow); font-size:0.95rem; margin-bottom:15px;"></p>
+                <a href="#" id="mEmail" class="modal-btn" target="_blank">
+                    <i class="fas fa-envelope"></i> SEND GMAIL
+                </a>
+            </div>
+            <div class="modal-main" id="mBody"></div>
+        </div>
+    </div>
+
+    <script>
+        const facultyData = [
+            {
+                id: 1, type: 'hod', name: "Dr. A. Ravindra Kumar", role: "Associate Professor & HOD",
+                email: "ravindraavula@kec.ac.in", image: "A Ravindra kumar.jpeg", 
+                education: ["Ph.D: CSE (Data Mining)", "M.Tech: CSE", "B.Tech: CSE"],
+                highlights: ["15+ Years Academic Experience", "Expert in ML & Hadoop", "Research Mentor"],
+                publications: ["Public Health Monitoring (2019)", "Advanced Attack Detection (2025)"],
+                memberships: ["Life Member - ISTE", "Member - IAENG"]
+            },
+            {
+                id: 2, type: 'core', name: "Althaf Hussain H B", role: "Assistant Professor",
+                email: "althaf@kec.ac.in", image: "Althaf Hussain H B.jpeg",
+                education: ["M.Tech (2008)", "M.Sc (2004)"],
+                highlights: ["Generative AI Expert", "Industry 5.0 Specialist"]
+            },
+            {
+                id: 3, type: 'core', name: "Mrs. M. Sampoorna", role: "Assistant Professor",
+                email: "msampoorna@kec.ac.in", image: "M Sampoorna.jpeg",
+                education: ["M.Tech: CSE", "B.Tech: CSE"],
+                highlights: ["Concept Mastery", "Student Success Mentor"]
+            },
+            {
+                id: 4, type: 'core', name: "Mr. K. Divya Prakash", role: "Assistant Professor",
+                email: "divyaprakashk@kec.ac.in", image: "K Divya Prakash.jpeg",
+                education: ["MCA", "M.Sc (CS)"],
+                highlights: ["Quantum Computing Enthusiast"]
+            },
+            {
+                id: 6, type: 'core', name: "Mrs. K. Durga", role: "Assistant Professor",
+                email: "kdurga@kec.ac.in", image: "durga.jpeg",
+                education: ["M.Tech: CSE", "B.Tech: CSE"],
+                highlights: ["Encourages Innovation", "Clear Explanations"]
+            },
+            {
+                id: 7, type: 'core', name: "Mr. L. Sai Krishna", role: "Assistant Professor",
+                email: "saikrishnal@kec.ac.in", image: "L Sai Krishna.jpeg",
+                education: ["M.Tech: CSE", "B.Tech: CSE"],
+                highlights: ["Tech Savvy", "Career Guidance Expert"]
+            },
+            {
+                id: 101, type: 'support', name: "Mr. R. Rajesh", role: "Senior Lab Technician",
+                email: "rajesh.lab@kec.ac.in", image: "https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?auto=format&fit=crop&w=600&q=80",
+                education: ["Diploma in CS"], highlights: ["Hardware Expert", "Fast Troubleshooting"]
+            },
+            {
+                id: 102, type: 'support', name: "Ms. S. Kavitha", role: "Lab Instructor",
+                email: "kavitha.s@kec.ac.in", image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=600&q=80",
+                education: ["B.Sc Computers"], highlights: ["Python Specialist", "Student Favorite"]
+            }
+        ];
+
+        function revealFaculty() {
+            document.getElementById('hero-section').classList.add('slide-up');
+            document.getElementById('main-container').classList.add('visible');
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        function init() {
+            const hodGrid = document.getElementById('hod-grid');
+            const staffGrid = document.getElementById('staff-grid');
+            const supportGrid = document.getElementById('support-grid');
+            
+            facultyData.forEach(member => {
+                const card = `
+                    <div class="card" onclick="openModal(${member.id})">
+                        <div class="card-img-box"><img src="${member.image}" onerror="this.src='https://via.placeholder.com/400x500?text=Faculty+Photo'"></div>
+                        <div class="card-body">
+                            <h3 class="card-name">${member.name}</h3>
+                            <p class="card-role">${member.role}</p>
+                        </div>
+                    </div>`;
+                if(member.type === 'hod') hodGrid.innerHTML += card;
+                else if(member.type === 'core') staffGrid.innerHTML += card;
+                else supportGrid.innerHTML += card;
+            });
+        }
+
+        function openModal(id) {
+            const m = facultyData.find(f => f.id === id);
+            if(!m) return;
+
+            document.getElementById('mImg').src = m.image;
+            document.getElementById('mName').innerText = m.name;
+            document.getElementById('mRole').innerText = m.role;
+            
+            const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${m.email}&su=Contact from KEC Directory&body=Dear ${m.name},`;
+            document.getElementById('mEmail').href = gmailUrl;
+
+            let bodyHtml = '';
+            const addSection = (label, list) => {
+                if(list && list.length > 0) {
+                    bodyHtml += `<span class="data-label">${label}</span>`;
+                    list.forEach(item => bodyHtml += `<div class="list-item"><i class="fas fa-check-circle" style="color:var(--accent-gold); margin-top:5px; margin-right:12px; font-size:0.8rem;"></i><span>${item}</span></div>`);
+                }
+            };
+
+            addSection("Education", m.education);
+            addSection("Key Highlights", m.highlights);
+            addSection("Research & Publications", m.publications);
+            addSection("Memberships", m.memberships);
+
+            document.getElementById('mBody').innerHTML = bodyHtml;
+            document.getElementById('modal').style.display = 'flex';
+            setTimeout(() => document.getElementById('modal').classList.add('active'), 10);
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+            setTimeout(() => document.getElementById('modal').style.display = 'none', 300);
+            document.body.style.overflow = '';
+        }
+
+        document.getElementById('facultySearch').addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            document.querySelectorAll('.card').forEach(card => {
+                card.style.display = card.innerText.toLowerCase().includes(term) ? 'block' : 'none';
+            });
+        });
+
+        window.onclick = (e) => { if(e.target.id === 'modal') closeModal(); };
+
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
