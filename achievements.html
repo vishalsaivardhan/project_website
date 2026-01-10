@@ -94,22 +94,11 @@
 
         .modal-text h2 { color: var(--brand-blue); font-size: 1.8rem; margin: 0 0 15px 0; }
         .modal-text p { line-height: 1.7; color: #555; font-size: 1.05rem; }
-        
-        .action-btn {
-            margin-top: 25px;
-            padding: 12px 25px;
-            background: var(--brand-blue);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 600;
-            width: fit-content;
-        }
 
         @media (max-width: 768px) {
             .modal-content { flex-direction: column; margin: 2vh auto; width: 95%; }
-            .modal-img { height: 200px; }
+            .modal-img { height: 250px; }
+            .modal-text { padding: 25px; }
         }
     </style>
 </head>
@@ -154,8 +143,7 @@
         <div class="modal-text">
             <h2 id="modalTitle"></h2>
             <p id="modalDesc"></p>
-            <button class="action-btn">View Full Details</button>
-        </div>
+            </div>
     </div>
 </div>
 
@@ -165,10 +153,9 @@
             title: "Quiz winners",
             img: "quiz winners.jpeg",
             desc: "G S Manjunath, K P Kumar Nandeesh, R Vetri Vignesh, and S Hemprakash were the proud winners of a quiz competition that once brought together 50 spirited teams. Their sharp intellect, quick responses, and seamless teamwork carried them through every round, setting them apart from the rest. The contest tested knowledge across diverse subjects, but this team’s confidence and unity ensured their victory. Though the event has passed, their achievement continues to be remembered as a shining example of dedication, preparation, and collaboration, inspiring future participants to aim high and embrace the joy of learning."
-
         },
         a2: {
-            title: "Techinical Quiz winners in CSE symposium",
+            title: "Technical Quiz winners in CSE symposium",
             img: "tech quize.jpeg",
             desc: "S Sravani, S M Lavanya, L Jayashree, and V Keerthana proudly clinched the first prize in the Technical Quiz held during the CSE Symposium. Competing against several talented teams, they stood out with their sharp problem‑solving skills, quick recall, and strong grasp of core computer science concepts. The quiz tested participants on programming, algorithms, emerging technologies, and logical reasoning, yet this team consistently impressed with accurate answers and confident teamwork. Their synergy and preparation carried them through challenging rounds, earning admiration from peers and faculty alike. Winning the top honor in such a competitive event highlights not only their technical brilliance but also their collaborative spirit, making their achievement a memorable milestone of the symposium."
         },
@@ -178,7 +165,7 @@
             desc: "B Manasa has been selected to represent Table Tennis in Jaya Chaitanya. Her achievement highlights dedication, skill, and consistent performance in the sport. This selection is a proud moment, reflecting her hard work and passion for table tennis, and it stands as an inspiration for fellow students to pursue excellence in both academics and extracurricular activities."
         },
         a4: {
-            title: "WON 2nd in Debugging",
+            title: "WON in Debugging",
             img: "debugging.jpeg",
             desc: "R Thenmoli secured the 2nd prize in the Debugging event, showcasing sharp analytical skills and problem‑solving ability. Competing against several talented participants, she impressed with her keen eye for errors, logical approach, and efficient solutions. This achievement highlights her strong technical foundation and dedication, making her success a proud moment and an inspiration for peers to strive for excellence in coding and debugging challenges."
         }
