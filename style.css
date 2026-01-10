@@ -66,3 +66,81 @@
   font-weight: 700;  /* bold */
   text-align: center;
 }
+/* --- Contact Popup Styling --- */
+
+.contact-popup {
+    display: none; /* Hidden by default - toggled by JS */
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 320px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    z-index: 1001; /* Higher than header and overlay */
+    border: 1px solid #ffcc00;
+    overflow: hidden;
+    animation: slideInRight 0.4s ease-out;
+}
+
+@keyframes slideInRight {
+    from { transform: translateX(100px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+.contact-header {
+    background: #004e9c;
+    color: #ffffff;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.contact-header span {
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.contact-body {
+    padding: 20px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    gap: 15px;
+}
+
+.contact-item:last-child {
+    margin-bottom: 0;
+}
+
+.contact-item .icon {
+    font-size: 1.4rem;
+}
+
+.contact-item .details small {
+    display: block;
+    color: #777;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.contact-item .details p {
+    color: #004e9c;
+    font-weight: 500;
+    font-size: 0.95rem;
+    margin: 0;
+}

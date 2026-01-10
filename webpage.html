@@ -2,17 +2,18 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name = "viewport" content = "width = device-width,initial-scale = 1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CSE-(AI & ML)</title>
-  <link rel="icon" type="image/png" href="C:\Users\visha\OneDrive\Desktop\Department_webpage\project_website\logo1.png">
-  <link rel="stylesheet"href="style.css">
+  
+  <link rel="icon" type="image/png" href="logo1.png">
+  <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <section class = "header">
-     <!-- Blue Header Block -->
+
+  <section class="header">
     <div class="logo">
       <img src="logo1.png" alt="Department Logo">
       <span>CSM</span>
@@ -24,16 +25,60 @@
         <li><a href="faculty1.html">Faculty</a></li>
         <li><a href="#events">Events</a></li>
         <li><a href="achievements.html">Achievements</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a href="javascript:void(0)" class="contact-btn" onclick="toggleContact()">Contact</a></li>
       </ul>
     </nav>  
   </section>
-  <!-- Hero Section with Background Image -->
-<section class="hero-section">
-  <div class="overlay">
-    <h1>Welcome to the Department of AI & ML</h1>
-    <p>Empowering students with knowledge and innovation.</p>
+
+  <section class="hero-section">
+    <div class="overlay">
+      <h1>Welcome to the Department of AI & ML</h1>
+      <p>Empowering students with knowledge and innovation.</p>
+    </div>
+  </section>
+
+  <div id="contactPopup" class="contact-popup">
+    <div class="contact-header">
+      <span>Department Contact</span>
+      <button class="close-btn" onclick="toggleContact()">&times;</button>
+    </div>
+    <div class="contact-body">
+      <div class="info-row">
+        <span class="icon">📧</span>
+        <div class="details">
+          <small>Email ID</small>
+          <p>aiml.dept@college.edu</p>
+        </div>
+      </div>
+      <div class="info-row">
+        <span class="icon">📞</span>
+        <div class="details">
+          <small>Phone Number</small>
+          <p>+91 98765 43210</p>
+        </div>
+      </div>
+    </div>
   </div>
-</section>
+
+  <script>
+    // Function to show/hide the popup
+    function toggleContact() {
+        const popup = document.getElementById("contactPopup");
+        if (popup.style.display === "block") {
+            popup.style.display = "none";
+        } else {
+            popup.style.display = "block";
+        }
+    }
+
+    // Close popup if clicking outside of the box
+    window.onclick = function(event) {
+        const popup = document.getElementById("contactPopup");
+        if (event.target == popup) {
+            popup.style.display = "none";
+        }
+    }
+  </script>
+
 </body>
 </html>
