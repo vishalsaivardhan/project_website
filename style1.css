@@ -1,0 +1,230 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background-color: #f4f6f7;
+  color: #2c3e50;
+}
+
+/* About Section */
+#about-kec {
+  padding: 60px;
+  background: linear-gradient(to right, #f9f9f9, #eef2f3);
+}
+
+.about-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 50px;
+  align-items: flex-start;
+  justify-content: space-between; /* ✅ text left, image right */
+  max-width: 1150px;
+  margin: 0 auto;
+}
+
+.about-text {
+  flex: 1 1 80%;  /* ✅ text takes more space */
+  order: 1;       /* ✅ always left */
+  max-width: 11 00px;
+}
+/* Department of AI & ML Section */
+.ai-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  align-items: flex-start;
+  justify-content: space-between; /* ✅ text left, image right */
+  max-width: 1150px;
+  margin: 0 auto;
+  padding: 60px;
+  background: linear-gradient(to right, #f9f9f9, #eef2f3);
+}
+
+.ai-text {
+  flex: 1 1 60%;   /* ✅ text takes more space */
+  order: 1;        /* ✅ always left */
+  max-width: 650px;
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+  .ai-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .ai-text, .ai-image {
+    order: unset; /* natural stacking */
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .ai-image img {
+    max-width: 80%;
+    border-radius: 15px;
+  }
+} 
+
+.about-text h1 {
+  font-size: 2.5em;
+  color: #1a5276;
+  margin-bottom: 20px;
+}
+
+.about-text h2 {
+  font-size: 1.8em;
+  color: #1a5276;
+  margin-top: 30px;
+}
+
+.about-text p {
+  font-size: 1.1em;
+  line-height: 1.7;
+  margin-bottom: 15px;
+}
+
+.about-text ul {
+  list-style: none;
+  padding: 0;
+}
+
+.about-text ul li {
+  font-size: 1.1em;
+  margin: 8px 0;
+  padding-left: 25px;
+  position: relative;
+}
+
+.about-text ul li::before {
+  content: "✔";
+  position: absolute;
+  left: 0;
+  color: #16a085;
+}
+
+.about-image {
+  flex: 1 1 35%;  /* ✅ image takes less space */
+  order: 2;       /* ✅ always right */
+  max-width: 1000px;
+  text-align: right;
+}
+
+.about-image img {
+  width: 100%;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  display: block;
+  margin: 0;
+}
+
+/* Vision & Mission Section */
+.vm-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  align-items: flex-start;
+  justify-content: space-between; /* ✅ text left, image right */
+  max-width: 1150px;
+  margin: 0 auto;
+  padding: 65px;
+  background: linear-gradient(to right, #f9f9f9, #eef2f3);
+}
+
+.vm-text {
+  flex: 1 1 60%;  /* ✅ text takes more space */
+  order: 1;       /* ✅ always left */
+  max-width: 650px;
+}
+
+.vm-text h1 {
+  font-size: 2.2em;
+  color: #1a5276;
+  margin-bottom: 20px;
+  margin-top: -100px;
+}
+
+.vm-text h2 {
+  font-size: 1.8em;
+  color: #1a5276;
+  margin-top: 30px;
+}
+
+.vm-text p {
+  font-size: 1.1em;
+  line-height: 1.7;
+  margin-bottom: 15px;
+}
+
+.vm-text ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.vm-text ul li {
+  font-size: 1.1em;
+  margin: 10px 0;
+  padding-left: 25px;
+  position: relative;
+}
+
+.vm-text ul li::before {
+  content: "*";
+  position: absolute;
+  left: 0;
+  color: #1abc9c;
+  font-weight: bold;
+}
+
+.vm-image {
+  flex: 1 1 35%;  /* ✅ image takes less space */
+  order: 2;       /* ✅ always right */
+  max-width: 500px;
+  text-align: right;
+}
+
+.vm-image img {
+  width: 100%;
+  border-radius: 20px; /* ✅ consistent corners */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  display: block;
+  margin: 0;
+}
+
+/* Equal spacing between multiple images */
+.vm-image img + img {
+  margin-top: 20px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .about-wrapper,
+  .vm-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .about-text, .about-image,
+  .vm-text, .vm-image {
+    order: unset; /* natural stacking */
+    max-width: 100%;
+    text-align: center;
+  }
+  .vm-image img {
+    max-width: 80%;
+    border-radius: 20px;
+  }
+}
+.about-image img,
+.vm-image img {
+  width: 100%;
+  max-height: 300px;   /* ✅ limit height so images don’t exceed text */
+  object-fit: cover;   /* ✅ crop proportionally if needed */
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  display: block;
+  margin: 0;
+}
