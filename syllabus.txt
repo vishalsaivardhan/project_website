@@ -1,0 +1,2341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>B.Tech CSE (AI & ML) – Syllabus</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
+<style>
+/* =====================================================
+   🌈 GLOBAL BASE
+===================================================== */
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  font-family:"Segoe UI",system-ui,-apple-system,sans-serif;
+  background:linear-gradient(135deg,#f5f7ff,#e3f2fd,#fce4ec,#e8f5e9);
+  color:#1e1e1e;
+  min-height:100vh;
+}
+
+/* =====================================================
+   🎓 HEADER
+===================================================== */
+header{
+  margin:20px;
+  padding:36px 26px;
+  border-radius:28px;
+  text-align:center;
+  background:linear-gradient(135deg,#42a5f5,#7e57c2,#ec407a);
+  color:#fff;
+  box-shadow:0 30px 60px rgba(0,0,0,.25);
+}
+
+header h1{font-size:2.4rem;margin-bottom:8px}
+header p{opacity:.95}
+
+/* =====================================================
+   🧭 FLOW INDICATOR
+===================================================== */
+.flow-pill{
+  padding:10px 22px;
+  border-radius:30px;
+  background:#e0e0e0;
+  font-weight:700;
+  opacity:.5;
+}
+.flow-pill.active{
+  background:linear-gradient(135deg,#00e5ff,#7c4dff);
+  color:#fff;
+  opacity:1;
+  box-shadow:0 0 20px rgba(0,229,255,.8);
+}
+
+/* =====================================================
+   📥 DOWNLOAD CTA
+===================================================== */
+.download-btn{
+  display:inline-block;
+  padding:18px 36px;
+  margin:30px auto;
+  border-radius:50px;
+  font-size:1.15rem;
+  font-weight:800;
+  text-decoration:none;
+  color:#fff;
+  background:linear-gradient(135deg,#ffca28,#ff7043);
+  box-shadow:0 25px 45px rgba(255,152,0,.55);
+  transition:.35s;
+}
+.download-btn:hover{
+  transform:scale(1.1);
+  box-shadow:0 35px 65px rgba(255,152,0,.8);
+}
+
+/* =====================================================
+   🔍 SEARCH
+===================================================== */
+.search{
+  display:flex;
+  justify-content:center;
+  margin:30px 0;
+}
+.search input{
+  width:92%;
+  max-width:460px;
+  padding:16px 22px;
+  border-radius:40px;
+  border:none;
+  outline:none;
+  font-size:1rem;
+  background:#fff;
+  box-shadow:0 20px 40px rgba(0,0,0,.25);
+}
+
+/* =====================================================
+   🎓 YEAR BUTTONS
+===================================================== */
+.year-select{
+  display:flex;
+  justify-content:center;
+  gap:14px;
+  margin:25px 0;
+}
+.year-select button{
+  padding:14px 24px;
+  font-size:1.05rem;
+  font-weight:700;
+  border:none;
+  border-radius:22px;
+  cursor:pointer;
+  color:#fff;
+  background:linear-gradient(135deg,#42a5f5,#7e57c2);
+  box-shadow:0 18px 35px rgba(0,0,0,.25);
+  transition:.3s;
+}
+.year-select button:hover{transform:scale(1.08)}
+
+/* =====================================================
+   📚 SEMESTER TABS
+===================================================== */
+.semester-tabs{
+  display:flex;
+  gap:14px;
+  margin:22px 0;
+}
+.sem{
+  flex:1;
+  padding:14px;
+  border-radius:30px;
+  border:none;
+  font-weight:700;
+  cursor:pointer;
+  background:linear-gradient(135deg,#90caf9,#ce93d8);
+  color:#fff;
+  transition:.3s;
+}
+.sem.active{
+  background:linear-gradient(135deg,#00e5ff,#7c4dff);
+  box-shadow:0 0 22px rgba(0,229,255,.8);
+}
+
+/* =====================================================
+   📘 SUBJECT CARDS
+===================================================== */
+.subject{
+  margin:14px 0;
+  padding:18px 22px;
+  border-radius:22px;
+  font-weight:700;
+  cursor:pointer;
+  background:linear-gradient(135deg,#ffffff,#f3f6ff);
+  box-shadow:0 20px 40px rgba(0,0,0,.18);
+  transition:.35s;
+}
+.subject:hover{
+  transform:translateY(-6px) scale(1.02);
+  box-shadow:0 30px 60px rgba(0,0,0,.3);
+}
+
+/* =====================================================
+   📄 UNITS
+===================================================== */
+.units{
+  display:none;
+  margin:15px 0 25px;
+  padding:24px 28px;
+  border-radius:24px;
+  background:linear-gradient(135deg,#e3f2fd,#fce4ec);
+  box-shadow:0 25px 55px rgba(0,0,0,.25);
+  animation:fade .45s ease;
+}
+.units.show{display:block}
+
+@keyframes fade{
+  from{opacity:0;transform:translateY(-10px)}
+  to{opacity:1}
+}
+
+/* =====================================================
+   ✨ POPUP
+===================================================== */
+.popup{
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(255,255,255,.7);
+  z-index:9999;
+}
+.popup-box{
+  padding:34px 40px;
+  border-radius:28px;
+  font-size:1.25rem;
+  font-weight:800;
+  text-align:center;
+  background:linear-gradient(135deg,#ffffff,#e1bee7);
+  box-shadow:0 40px 80px rgba(0,0,0,.35);
+  animation:scaleIn .4s ease;
+}
+@keyframes scaleIn{
+  from{transform:scale(.85);opacity:0}
+  to{transform:scale(1)}
+}
+
+/* =====================================================
+   🎉 CONFETTI
+===================================================== */
+.confetti{
+  position:fixed;
+  width:10px;
+  height:10px;
+  top:-10px;
+  animation:fall 3s linear forwards;
+  z-index:9999;
+}
+@keyframes fall{
+  to{transform:translateY(110vh) rotate(360deg);opacity:0}
+}
+
+
+
+/* =====================================================
+   📱 RESPONSIVE
+===================================================== */
+@media(max-width:700px){
+  header h1{font-size:1.7rem}
+}
+.download-wrapper {
+  display: flex;
+  justify-content: center;   /* centers button */
+  margin: 20px 0;
+}
+/* =====================================
+   🎨 COLORFUL YEAR BUTTONS (1 2 3 4)
+===================================== */
+
+.year-select button:nth-child(1){
+  background:linear-gradient(135deg,#42a5f5,#2979ff); /* Blue */
+}
+.year-select button:nth-child(2){
+  background:linear-gradient(135deg,#26c6da,#00acc1); /* Teal */
+}
+.year-select button:nth-child(3){
+  background:linear-gradient(135deg,#ab47bc,#7e57c2); /* Purple */
+}
+.year-select button:nth-child(4){
+  background:linear-gradient(135deg,#ff7043,#ff9800); /* Orange */
+}
+
+/* Glow on hover */
+.year-select button:hover{
+  transform:scale(1.12);
+  box-shadow:0 0 30px rgba(0,0,0,0.35);
+}
+
+/* Active year glow */
+.year-select button.active{
+  box-shadow:
+    0 0 35px rgba(255,255,255,0.9),
+    0 25px 60px rgba(0,0,0,0.4);
+  transform:scale(1.15);
+}
+
+/* =====================================
+   🌈 COLORFUL WELCOME POPUP
+===================================== */
+
+.popup-box{
+  font-size:1.35rem;
+  font-weight:800;
+  color:#fff;
+  background:linear-gradient(
+    135deg,
+    #ff4081,
+    #7c4dff,
+    #40c4ff,
+    #69f0ae
+  );
+  background-size:300% 300%;
+  animation:gradientMove 4s ease infinite, popIn .5s ease;
+  box-shadow:0 0 40px rgba(255,64,129,.7);
+}
+
+@keyframes gradientMove{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+@keyframes popIn{
+  from{transform:scale(.8);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+/* =====================================
+   🌟 WELCOME TEXT – MOVE ABOVE DOWNLOAD
+===================================== */
+
+/* target the welcome text */
+.welcome-text,
+#welcome,
+.welcome-message{
+  display:block;
+  width:100%;
+  text-align:center;
+  font-size:1.2rem;
+  font-weight:700;
+  color:#ff4081;
+  margin-bottom:20px;
+
+  /* pink pop */
+  background:linear-gradient(135deg,#fff0f6,#fce4ec);
+  padding:14px 24px;
+  border-radius:30px;
+  box-shadow:0 0 25px rgba(255,64,129,.4);
+
+  /* animation */
+  animation:welcomePop .6s ease;
+}
+
+/* make sure it sits ABOVE download */
+.download-btn{
+  margin-top:10px;
+}
+
+@keyframes welcomePop{
+  from{transform:translateY(-10px);opacity:0}
+  to{transform:translateY(0);opacity:1}
+}
+h1, h2 {
+  margin-top: 0.67em;
+  margin-bottom: 0.67em;
+}
+
+.popup {
+  z-index: 1;
+}
+.search {
+  display: flex;
+  justify-content: center;
+  margin: 12px 0;
+}
+
+.search input {
+  width: 180px;          /* 👈 smaller width */
+  height: 38px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid #d0d0d0;
+  font-size: 14px;
+  outline: none;
+}
+
+
+/* Semester buttons container */
+.semester-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+.semester-tabs .sem {
+  padding: 20px 44px !important;
+  min-width: 160px !important;
+  border-radius: 35px;
+  font-size: 18px !important;
+  font-weight: 600;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+
+/* ---- your existing CSS above ---- */
+
+/* 🔥 FORCE SEMESTER BUTTON COLORS (PASTE AT VERY BOTTOM) */
+.semester-tabs .sem-1 {
+  background: linear-gradient(135deg,#3b82f6,#06b6d4) !important;
+}
+
+.semester-tabs .sem-2 {
+  background: linear-gradient(135deg,#14b8a6,#22c55e) !important;
+}
+
+.semester-tabs .sem-3 {
+  background: linear-gradient(135deg,#8b5cf6,#a855f7) !important;
+}
+
+.semester-tabs .sem-4 {
+  background: linear-gradient(135deg,#f59e0b,#f97316) !important;
+}
+
+
+
+
+
+.sem:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* Semester colors */
+.sem-1 { background: linear-gradient(135deg,#3b82f6,#06b6d4); }
+.sem-2 { background: linear-gradient(135deg,#14b8a6,#22c55e); }
+.sem-3 { background: linear-gradient(135deg,#8b5cf6,#a855f7); }
+.sem-4 { background: linear-gradient(135deg,#f59e0b,#f97316); }
+
+/* Search */
+.search-box {
+  display: flex;
+  justify-content: center;
+  margin: 18px 0 10px;
+}
+
+.search-box input {
+  width: 320px;
+  padding: 14px 20px;
+  border-radius: 30px;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+}
+
+/* Subject cards */
+.subject {
+  margin: 12px 0;
+  padding: 16px;
+  border-radius: 18px;
+  cursor: pointer;
+  background: #fff;
+  box-shadow: 0 10px 25px rgba(0,0,0,.15);
+/* 🌈 PARTY BACKGROUND */
+body {
+  background: linear-gradient(135deg,
+    #ff9a9e,
+    #fad0c4,
+    #fbc2eb,
+    #a1c4fd,
+    #c2e9fb
+  );
+  background-size: 400% 400%;
+  animation: bgParty 12s ease infinite;
+}
+
+/* Smooth gradient movement */
+@keyframes bgParty {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* 🎈 PARTY CARD GLOW */
+.party-card {
+  animation: float 4s ease-in-out infinite;
+  box-shadow: 0 0 25px rgba(255,255,255,0.6);
+  border-radius: 18px;
+}
+
+/* Floating feel */
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* 🔥 PARTY BUTTON */
+.party-btn {
+  background: linear-gradient(45deg,#ff512f,#dd2476,#24c6dc);
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 999px;
+  padding: 14px 28px;
+  cursor: pointer;
+  transition: transform .2s;
+}
+
+.party-btn:hover {
+  transform: scale(1.08);
+}
+
+
+
+</style>
+
+
+</head>
+<body>
+<header>
+<h1>📘 B.Tech CSE (AI & ML) – Syllabus</h1>
+<p><i>“Where code meets intelligence and ideas become innovation.”</i></p>
+<p>🎓 JNTUA 24 Regulation</p>
+
+ </header>
+
+<div class="center-stack">
+<div class="welcome-text">
+  🎉 Welcome! start exploring the syllabus u will enjoy it 👋
+</div>
+<div class="download-wrapper">
+  <a href=https://drive.google.com/file/d/1fRhF4lXRzkuY-beg3UL4pteGKq5ehPG0/view?usp=drivesdk
+     target="_blank"
+     class="download-btn">
+    ⬇ Download Syllabus
+  </a>
+</div>
+<div class="year-select">
+  <button onclick="selectYear(1)">🎓 1st Year</button>
+  <button onclick="selectYear(2)">🎓 2nd Year</button>
+  <button onclick="selectYear(3)">🎓 3rd Year</button>
+  <button onclick="selectYear(4)">🎓 4th Year</button>
+</div>
+
+<div class="semester-tabs" id="semesterTabs">
+  <button class="sem sem-1" onclick="selectSem('1-1')">1-1 Sem</button>
+  <button class="sem sem-1" onclick="selectSem('1-2')">1-2 Sem</button>
+
+  <button class="sem sem-2" onclick="selectSem('2-1')">2-1 Sem</button>
+  <button class="sem sem-2" onclick="selectSem('2-2')">2-2 Sem</button>
+
+  <button class="sem sem-3" onclick="selectSem('3-1')">3-1 Sem</button>
+  <button class="sem sem-3" onclick="selectSem('3-2')">3-2 Sem</button>
+
+  <button class="sem sem-4" onclick="selectSem('4-1')">4-1 Sem</button>
+  <button class="sem sem-4" onclick="selectSem('4-2')">4-2 Sem</button>
+</div>
+
+
+<div class="year-block year-1">
+<div class="sem-block sem-1-1">
+
+  <h2>📘 I B.Tech – I Semester</h2>
+
+    <div class="subject">LINEAR ALGEBRA and CALCULUS – I</div>
+    <div class="units">
+    <p>🔢 <b>Unit I:</b><b> Linear Algebra </b>– Rank of a matrix by echel on form, normal form. Cauchy–Binet formulae (without proof). 
+Inverse of Non- singular matrices by Gauss-Jordan method, System of linear equations: 
+Solving system of Homogeneous and Non-Homogeneous equations by Gauss elimination 
+method, Jacobi and Gauss Seidel Iteration Methods.</p>
+
+<p>📊 <b>Unit II:</b> <b>Eigen values & vectors</b> – Eigen values, Eigenvectors and their properties, Diagonalization of a matrix, Cayley- 
+Hamilton Theorem (without proof), finding inverse and power of a matrix by Cayley- 
+Hamilton Theorem, Quadratic forms and Nature of the Quadratic Forms, Reduction of 
+Quadratic form to canonical forms by Orthogonal Transformation.</p>
+
+<p>📈 <b>Unit III:</b> <b> Differential calculus </b>-.Mean Value Theorems: Rolle’s Theorem, Lagrange’s mean value theorem with their 
+geometrical interpretation, Cauchy’s mean value theorem, Taylor’s and Maclaurin theorems 
+with remainders (without proof), Problems and applications on the above theorems.</p>
+
+<p>➗ <b>Unit IV:</b> <b>Integral calculus</b>--. Functions of several 
+variables: Continuity and Differentiability, Partial derivatives, total derivatives, chain rule, 
+Directional derivative, Taylor’s and Maclaurin’s series expansion of functions of two 
+variables. Jacobians, Functional dependence, maxima and minima of functions of two 
+variables, method of Lagrange multipliers.</p>
+
+<p>🧭 <b>Unit V:</b> <b>Vector calculus</b>--.Double integrals, triple integrals, change of order of integration, change of variables to polar, 
+cylindrical and spherical coordinates. Finding areas (by double integrals) and volumes (by 
+double integrals and triple integrals).</p>
+</div>
+
+<!-- 2 -->
+<div class="subject"> ⚡ENGINEERING PHYSICS</div>
+    <div class="units">
+<p>🌈 <b>Unit I:</b> <b>Wave optics </b>.--Interference: Introduction - Principle of superposition –Interference of light - Interference in 
+thin films (Reflection Geometry) & applications - Colours in thin films- Newton’s Rings, 
+Determination of wavelength and refractive index. Diffraction: Introduction - Fresnel and 
+Fraunhofer diffractions - Fraunhofer diffraction due to single slit, double slit & N-slits 
+(Qualitative) – Diffraction Grating - Dispersive power and resolving power of Grating 
+(Qualitative). Polarization: Introduction -Types of polarization - Polarization by reflection, 
+refraction and Double refraction - Nicol’s Prism -Half wave and Quarter wave plates.</p>
+
+<p>🧊 <b>Unit II:</b> <b> Crystallography </b>--.Crystallography: Space lattice, Basis, Unit Cell and lattice parameters – Bravais Lattices – 
+crystal systems (3D) – coordination number - packing fraction of SC, BCC & FCC - Miller 
+indices – separation between successive (hkl) planes. X-ray diffraction: Bragg’s law - X-ray 
+Diffractometer – crystal structure determination by Laue’s and powder methods.</p>
+
+<p>🧲 <b>Unit III:</b> <b> Dielectric & magnetic materials </b>--.Dielectric Materials: Introduction - Dielectric polarization - Dielectric polarizability, 
+Susceptibility, Dielectric constant and Displacement Vector – Relation between the electric 
+vectors - Types of polarizations- Electronic (Quantitative), Ionic (Quantitative) and 
+Orientation polarizations (Qualitative) - Lorentz internal field - Clausius- Mossotti equation. 
+Magnetic Materials: Introduction - Magnetic dipole moment - Magnetization-Magnetic 
+susceptibility and permeability – Atomic origin of magnetism - Classification of magnetic 
+materials: Dia, para, Ferro, anti-ferro & Ferri magnetic materials - Domain concept for 
+Ferromagnetism & Domain walls (Qualitative) - Hysteresis - soft and hard magnetic 
+materials.</p>
+
+<p>⚛️ <b>Unit IV:</b><b> Quantum mechanics.Quantum Mechanics:</b> Dual nature of matter – Heisenberg’s Uncertainty Principle – 
+Significance and properties of wave function – Schrodinger’s time independent and 
+dependent wave equations– Particle in a one-dimensional infinite potential well.</p>
+
+<p>💡 <b>Unit V:</b> <b>Semiconductors </b>--.Formation of energy bands – classification of crystalline solids – Intrinsic 
+semiconductors: Density of charge carriers – Electrical conductivity – Fermi level- 
+Extrinsic semiconductors: density of charge carriers – dependence of Fermi energy on carrier 
+concentration and temperature - Drift and diffusion currents – Einstein’s equation – Hall 
+effect and its applications.</p>
+</div>
+
+
+<!-- 3 -->
+<div class="subject">💡 Basic Electrical & Electronics Engineering</div>
+    <div class="units">
+<p>🔌 <b>Unit I:</b> <b>DC & AC circuits</b>--.DC Circuits:  
+DC & AC Circuits 
+DC Circuits: Electrical circuit elements (R, L and C), Ohm’s Law and its limitations, KCL & 
+KVL, series, parallel, series-parallel circuits, Super Position theorem, Simple numerical 
+problems. 
+<b>AC Circuits: A.C. Fundamentals:</b> Equation of AC Voltage and current, waveform, time 
+period, frequency, amplitude, phase, phase difference, average value, RMS value, form 
+factor, peak factor, Voltage and current relationship with phasor diagrams in R, L, and C 
+circuits, Concept of Impedance, Active power, reactive power and apparent power, 
+Concept of power factor (Simple Numerical problems).</p> 
+<p>⚙️ <b>Unit II:</b> <b>Electrical machines</b>--.Machines: Machines and Measuring Instruments 
+Machines: Construction, principle and operation of (i) DC Motor, (ii) DC Generator, (iii) 
+Single Phase Transformer, (iv) Three Phase Induction Motor and (v) Alternator, 
+Applications of electrical machines. 
+Measuring Instruments: Construction and working principle of Permanent Magnet 
+Moving Coil (PMMC), Moving Iron (MI) Instruments and Wheat Stone bridge.</p> 
+<p>🌱 <b>Unit III:</b> <b>Energy resources & safety</b>--.Energy Resources:Energy Resources, Electricity Bill & Safety Measures 
+Energy Resources: Conventional and non-conventional energy resources; Layout and 
+operation of various Power Generation systems: Hydel, Nuclear, Solar & Wind power 
+generation. 
+Electricity bill: Power rating of household appliances including air conditioners, PCs, 
+Laptops, Printers, etc. Definition of “unit” used for consumption of electrical energy, two- 
+part electricity tariff, calculation of electricity bill for domestic consu </p>
+
+<p>🔋 <b>Unit IV:</b> <b>Diodes & transistors</b>--Introduction – Evolution of electronics - Vacuum tubes to nano electronics - Characteristics 
+of PN Junction Diode - Zener Effect - Zener Diode and its Characteristics. Bipolar Junction 
+Transistor - CB, CE, CC Configurations and Characteristics - Elementary Treatment of Small 
+Signal CE Amplifier.</p> 
+<p>🧮 <b>Unit V:</b><b> Digital electronics</b>--Overview of Number Systems, Logic gates including Universal Gates, BCD codes, Excess- 3 
+code, Gray code, Hamming code. Boolean Algebra, Basic Theorems and properties of Boolean 
+Algebra, Truth Tables and Functionality of Logic Gates – NOT, OR, AND, NOR, NAND, XOR 
+and XNOR. Simple combinational circuits–Half and Full Adder, Introduction to sequential 
+circuits, Flip flops, Registers and counters (Elementary Treatment only).</p>
+</div>
+
+<!-- 4 -->
+<div class="subject">💻 INtroduction to c programming</div>
+    <div class="units">
+<p>🧠 <b>Unit I:</b> <b>Algorithms & flowcharts </b>--.History of Computers, Basic organization of a computer: ALU, input-output units, memory, 
+program counter, Introduction to Programming Languages, Basics of a Computer Program- 
+Algorithms, flowcharts (Using Dia Tool), pseudo code. Introduction to Compilation and 
+Execution, Primitive Data Types, Variables, and Constants, Basic Input and Output, 
+Operations, Type Conversion, and Casting. 
+Problem solving techniques: Algorithmic approach, characteristics of algorithm, Problem 
+solving strategies: Top-down approach, Bottom-up approach, Time and space complexities of 
+algorithms..</p>
+<p>🔁 <b>Unit II:</b> <b>Control structures </b>--.Simple sequential programs Conditional Statements (if, if-else, switch), Loops (for, while, do
+while) Break and Continue..</p>
+<p>📦 <b>Unit III:</b> <b>Arrays & strings</b>--.Arrays indexing, memory model, programs with array of integers, two dimensional arrays, 
+Introduction to Strings..</p>
+<p>📍 <b>Unit IV:</b> <b>Pointers & structures</b>--.Pointers, dereferencing and address operators, pointer and address arithmetic, array 
+manipulation using pointers, User-defined data types-Structures and Unions. .</p>
+<p>📁 <b>Unit V:</b> <b>Functions & file handling </b>--.Introduction to Functions, Function Declaration and Definition, Function call Return Types 
+and Arguments, modifying parameters inside functions using pointers, arrays as parameters. 
+Scope and Lifetime of Variables, Basics of File Handling..</p>
+</div>
+
+<!-- 5 -->
+<div class="subject">✏️ Engineering Graphics</div>
+    <div class="units">
+<p><b>unit 1:</b><b>Introduction:</b> Lines, Lettering and Dimensioning, Geometrical Constructions and 
+Constructing regular polygons by general methods. 
+Curves: construction of ellipse, parabola and hyperbola by general, Cycloids, Involutes, 
+Normal and tangent to Curves. 
+Scales: Plain scales, diagonal scales and Vernier scales.</p> 
+<p><b>UNIT II: </b>
+</b>Orthographic Projections</b>: Reference plane, importance of reference lines or Plane, 
+Projections of a point situated in any one of the four quadrants. 
+Projections of Straight Lines: Projections of straight lines parallel to both reference planes, 
+perpendicular to one reference plane and parallel to other reference plane, inclined to one 
+reference plane and parallel to the other reference plane. Projections of Straight Line 
+Inclined to both the reference planes. 
+Projections of Planes: Regular planes Perpendicular to both reference planes, parallel to 
+one Reference plane and inclined to the other reference plane; plane inclined to both the 
+reference planes. </p>
+<p><b>UNIT III:</b> 
+<b>Projections of Solids:</b> Types of solids: Polyhedra and Solids of revolution. Projections of 
+solids in simple positions: Axis perpendicular to horizontal plane, Axis perpendicular to 
+vertical plane and Axis parallel to both the reference planes, Projection of Solids with axis 
+inclined to one reference plane and parallel to another plane.</p>
+<p><b>UNIT IV:</b> 
+<b>Sections of Solids:</b> Perpendicular and inclined section planes, Sectional views and True 
+shape of section, Sections of solids in simple position only. 
+Development of Surfaces: Methods of Development: Parallel line development and radial 
+line development. Development of a cube, prism, cylinder, pyramid and cone. </P>
+<p><b>UNIT V:</b> 
+<b>Conversion of Views:</b> Conversion of isometric views to orthographic views; 
+Conversion of orthographic views to isometric views. 
+Computer Graphics: Creating 2D&3D drawings of objects including PCB and 
+Transformations using Auto CAD (Not for end examination).</P>
+</div>
+
+<!-- 6 -->
+<div class="subject">💻 IT workshop</div>
+    <div class="units">
+<p><b>UNIT I:</b> 
+<b>PC Hardware & Software Installation</b> 
+Task 1: Identify the peripherals of a computer, components in a CPU and its functions. 
+Draw the block diagram of the CPU along with the configuration of each peripheral and 
+submit to your instructor. 
+Task 2: Every student should disassemble and assemble the PC back to working condition. 
+Lab instructors should verify the work and follow it up with a Viva. Also students need to 
+go through the video which shows the process of assembling a PC. A video would be 
+given as part of the course content. 
+Task 3: Every student should individually install MS windows on the personal computer. 
+Lab instructor should verify the installation and follow it up with a Viva. 
+Task 4: Every student should install Linux on the computer. This computer should have 
+windows installed. The system should be configured as dual boot (VM Ware) with both 
+Windows and Linux. Lab instructors should verify the installation and follow it up with a 
+Viva 
+Task 5: Every student should install BOSS on the computer. The system should be 
+configured as dual boot (VM Ware) with both Windows and BOSS. Lab instructors should 
+verify the installation and follow it up with a Viva.</p> 
+<p><b>UNIT II:</b> 
+<b>Internet & World Wide Web</b> 
+Task1: Orientation & Connectivity Boot Camp: Students should get connected to their 
+Local Area Network and access the Internet. In the process they configure the TCP/IP 
+setting. Finally students should demonstrate, to the instructor, how to access the websites 
+and email. If there is no internet connectivity preparations need to be made by the 
+instructors to simulate the WWW on the LAN. 
+Task 2: Web Browsers, Surfing the Web: Students customize their web browsers with the 
+LAN proxy settings, bookmarks, search toolbars and pop up blockers. Also, plug-ins like 
+Macromedia Flash and JRE for applets should be configured. 
+Task 3: Search Engines & Netiquette: Students should know what search engines are and 
+how to use the search engines. A few topics would be given to the students for which they 
+need to search on Google. This should be demonstrated to the instructors by the student. 
+Task 4: Cyber Hygiene: Students would be exposed to the various threats on the internet 
+and would be asked to configure their computer to be safe on the internet. They need to 
+customize their browsers to block pop ups, block active x downloads to avoid viruses 
+and/or worms.</p> 
+<p><b>UNIT III:</b> 
+<b>LATEX and WORD:</b> 
+Task 1 – Word Orientation: The mentor needs to give an overview of LATEX and 
+Microsoft (MS) office or equivalent (FOSS) tool word: Importance of LATEX and MS office 
+or equivalent (FOSS) tool Word as word Processors, Details of the four tasks and features 
+that would be covered in each, Using LATEX and word – Accessing, overview of toolbars, 
+saving files, Using help and resources, rulers, format painter in word. 
+Task 2: Using LATEX and Word to create a project certificate. Features to be covered:- 
+Formatting Fonts in word, Drop Cap in word, Applying Text effects, Using Character 
+Spacing, Borders and Colors, Inserting Header and Footer, Using Date and Time option in 
+both LATEX and Word. 
+Task 3: Creating project abstract Features to be covered:-Formatting Styles, Inserting table, 
+Bullets and Numbering, Changing Text Direction, Cell alignment, Footnote, Hyperlink, 
+Symbols, Spell Check, Track Changes. 
+Task 4: Creating a Newsletter: Features to be covered:- Table of Content, Newspaper 
+columns, Images from files and clipart, Drawing toolbar and Word Art, Formatting 
+Images, Textboxes, Paragraphs and Mail Merge in word.</p>
+<p><b>UNIT IV:</b> 
+<b>EXCEL: 
+Excel Orientation:</b> The mentor needs to tell the importance of MS office or equivalent 
+(FOSS) tool Excel as a Spreadsheet tool, give the details of the four tasks and features that 
+would be covered in each. Using Excel – Accessing, overview of toolbars, saving excel files, 
+Using help and resources. 
+Task 1: Creating a Scheduler - Features to be covered: Gridlines, Format Cells, Summation, 
+auto fill, Formatting Text. 
+Task 2: Calculating GPA -. Features to be covered:- Cell Referencing, Formulae in excel – 
+average, std. deviation, Charts, Renaming and Inserting worksheets, Hyper linking, Count 
+function, 
+LOOKUP/VLOOKUP 
+Task 3: Split cells, freeze panes, group and outline, Sorting, Boolean and logical operators, 
+Conditional formatting.</p>
+<p><b>UNIT V:</b> 
+<b>POWER POINT:</b> 
+Task 1: Students will be working on basic power point utilities and tools which help 
+them create basic power point presentations. PPT Orientation, Slide Layouts, Inserting 
+Text, Word Art, Formatting Text, Bullets and Numbering, Auto Shapes, Lines and Arrows 
+in PowerPoint. 
+Task 2: Interactive presentations - Hyperlinks, Inserting –Images, Clip Art, Audio, Video, 
+Objects, Tables and Charts. 
+Task 3: Master Layouts (slide, template, and notes), Types of views (basic, presentation, 
+slide slotter, notes etc), and Inserting – Background, textures, Design Templates, Hidden 
+slides.</p>
+</div>
+
+
+
+<div class="side-heading">🧪 Labs</div>
+<!-- 7 -->
+<div class="subject">💻 Programming in C Lab</div>
+<div class="units">
+<p><b>UNIT I:</b> 
+WEEK 1 
+<b>Objective: Getting familiar with the programming environment on the computer and 
+writing the first program</b>. 
+Suggested Experiments/Activities: Tutorial 1: Problem-solving using Computers. 
+Lab1: Familiarization with programming environment 
+i) 
+Basic Linux environment and its editors like Vi, Vim & Emacs etc. 
+ii) Exposure to Turbo C, gcc 
+iii) Writing simple programs using printf(), scanf(). 
+WEEK 2 
+Objective: Getting familiar with how to formally describe a solution to a problem in a 
+series of finite steps both using textual notation and graphic notation. 
+Suggested Experiments /Activities: 
+Tutorial 2: Problem-solving using Algorithms and Flow charts. 
+Lab 1: Converting algorithms/flow charts into C Source code. 
+Developing the algorithms/flowcharts for the following sample programs 
+i) 
+Sum and average of 3 numbers 
+ii) Conversion of Fahrenheit to Celsius and vice versa 
+iii) Simple interest calculation 
+WEEK 3 
+Objective: Learn how to define variables with the desired data-type, initialize them with 
+appropriate values and how arithmetic operators can be used with variables and constants. 
+Suggested Experiments/Activities:  
+Tutorial 3: Variable types and type conversions: 
+Lab 3: Simple computational problems using arithmetic expressions. 
+i) 
+Finding the square root of a given number 
+ii) Finding compound interest 
+iii) Area of a triangle using heron’s formulae 
+iv) Distance travelled by an object </p>
+<p><b>UNIT II:</b> 
+WEEK4 
+<b>Objective: Explore the full scope of expressions, type-compatibility of variables & 
+constants and operators used in the expression and how operator precedence works.</b> 
+Suggested Experiments/Activities: 
+Tutorial4: Operators and the precedence and as associativity: 
+Lab4: Simple computational problems using the operator’ precedence and associativity 
+i) 
+Evaluate the following expressions. 
+a. A+B*C+(D*E) + F*G 
+b. A/B*C-B+A*D/3 
+c. A+++B---A 
+d. J= (i++) + (++i) 
+ii) Find the maximum of three numbers using conditional operator 
+iii) Take marks of 5 subjects in integers, and find the total, average in float. 
+WEEK 5 
+Objective: Explore the full scope of different variants of “if construct” namely if-else, null- 
+else, if-else if*-else, switch and nested-if including in what scenario each one of them can be 
+used and how to use them. Explore all relational and logical operators while writing 
+conditionals for “if construct”. 
+Suggested Experiments/Activities:  
+Tutorial 5: Branching and logical expressions: 
+Lab 5: Problems involving if-then-else structures. 
+i) 
+Write a C program to find the max and min of four numbers using if-else. 
+ii) Write a C program to generate electricity bill. 
+iii) Find the roots of the quadratic equation. 
+iv) Write a C program to simulate a calculator using switch case. 
+v) Write a C program to find the given year is a leap year or not. 
+WEEK 6 
+Objective: Explore the full scope of iterative constructs namely while loop, do-while loop 
+and for loop in addition to structured jump constructs like break and continue including 
+when each of these statements is more appropriate to use. 
+Suggested Experiments/Activities: 
+Tutorial 6: Loops, while and for loops 
+Lab 6: Iterative problems e.g., the sum of series 
+i) 
+Find the factorial of given number using any loop. 
+ii) Find the given number is a prime or not. 
+iii) Compute sine and cos series 
+iv) Checking a number palindrome 
+v) Construct a pyramid of numbers. </P>
+<p><b>UNIT III:</b> 
+WEEK 7: 
+<b>Objective: Explore the full scope of Arrays construct namely defining and initializing 1- D 
+and 2-D and more generically n-D arrays and referencing individual array elements from 
+the defined array. Using integer 1-D arrays, explore search solution linear search.</b> 
+Suggested Experiments/Activities: . 
+Tutorial 7: 1 D Arrays: searching. 
+Lab 7:1D Array manipulation, linear search 
+i) 
+Find the min and max of a 1-D integer array. 
+ii) Perform linear search on1D array. 
+iii) The reverse of a 1D integer array 
+iv) Find 2’s complement of the given binary number. 
+v) Eliminate duplicate elements in an array. 
+WEEK 8: 
+Objective: Explore the difference between other arrays and character arrays that can be 
+used as Strings by using null character and get comfortable with string by doing 
+experiments that will reverse a string and concatenate two strings. Explore sorting solution 
+bubble sort using integer arrays. 
+Suggested Experiments/Activities:  
+Tutorial 8: 2 D arrays, sorting and Strings. 
+Lab 8: Matrix problems, String operations, Bubble sort 
+i) 
+Addition of two matrices 
+ii) Multiplication two matrices 
+iii) Sort array elements using bubble sort 
+iv) Concatenate two strings without built-in functions 
+v) Reverse a string using built-in and without built-in string functions </p>
+<p><b>UNIT IV: </b>
+WEEK9: 
+<b>Objective: Explore pointers to manage a dynamic array of integers, including memory 
+allocation &amp; value initialization, resizing changing and reordering the contents of an 
+array and memory de-allocation using malloc (), calloc (), realloc () and free () functions. 
+Gain experience processing command-line arguments received by C </b> 
+  Tutorial 9: Pointers, structures and dynamic memory allocation 
+Lab 9: Pointers and structures, memory dereference. 
+i) 
+Write a C program to find the sum of a 1D array using malloc() 
+ii) Write a C program to find the total, average of n students using structures 
+iii) Enter n students data using calloc() and display failed students list 
+iv) Read student name and marks from the command line and display the student details         
+along with the total. 
+v) Write a C program to implement realloc() 
+WEEK 10: 
+Objective: Experiment with C Structures, Unions, bit fields and self-referential 
+structures (Singly linked lists) and nested structures 
+Suggested Experiments/Activities: 
+Tutorial 10: Bit fields, Self-Referential Structures, Linked lists 
+Lab 10: Bit fields, linked lists 
+Read and print a date using dd/mm/yy format using bit-fields and differentiate the same 
+without using bit- fields 
+i) 
+Create and display a singly linked list using self-referential structure. 
+ii) Demonstrate the differences between structures and unions using a C program. 
+iii) Write a C program to shift/rotate using bit fields. 
+iv) Write a C program to copy one structure variable to another structure of the same 
+type.</p>
+<p><b>UNIT V:</b> 
+WEEK 11: 
+<b>Objective: Explore the Functions, sub-routines, scope and extent of variables, doing some 
+experiments by parameter passing using call by value. Basic methods of numerical 
+integration</b> 
+Suggested Experiments/Activities: 
+Tutorial 11: Functions, call by value, scope and extent, 
+Lab 11: Simple functions using call by value, solving differential equations using Euler’s 
+theorem. 
+i) 
+Write a C function to calculate NCR value. 
+ii) Write a C function to find the length of a string. 
+iii) Write a C function to transpose of a matrix. 
+iv) Write a C function to demonstrate numerical integration of differential equations using                     
+Euler’s method.</p>
+</div>
+
+<!-- 8 -->
+<div class="subject">⚡ Engineering Physics Lab</div>
+<div class="units">
+<p><b>LIST OF EXPERIMENTS:</b> 
+1. Determination of radius of curvature of a given Plano-convex lens by Newton’s rings.<br> 
+2. Determination of wavelengths of different spectral lines in mercury spectrum using 
+diffraction grating in normal incidence configuration.<br> 
+3. Verification of Brewster’s law<br> 
+4. Determination of dielectric constant using charging and discharging method<br>. 
+5. Study the variation of B versus H by magnetizing the magnetic material (B-H 
+curve).<br>
+6. Determination of wavelength of Laser light using diffraction grating.<br> 
+7. Estimation of Planck’s constant using photoelectric effect.<br> 
+8. Determination of the resistivity of semiconductors by four probe methods.<br> 
+9. Determination of energy gap of a semiconductor using p-n junction diode. <br>
+10. Magnetic field along the axis of a current carrying circular coil by Stewart 
+Gee’s Method.<br> 
+11. Determination of Hall voltage and Hall coefficient of a given semiconductor using Hall 
+effect.<br> 
+12. Determination of temperature coefficients of a thermistor.<br> 
+13. Determination of acceleration due to gravity and radius of Gyration by using a 
+compound pendulum. <br>
+14. Determination of magnetic susceptibility by Kundt’s tube method.<br> 
+15. Determination of rigidity modulus of the material of the given wire using 
+Torsional pendulum. <br>
+16. Sono meter: Verification of laws of stretched string. <br>
+17. Determination of young’s modulus for the given material of wooden scale by non
+uniform bending (or double cantilever) method.<br> 
+18. Determination of Frequency of electrically maintained tuning fork by Melde’s 
+experiment.</p>
+</div>
+
+<!-- 9 -->
+
+<div class="subject">🔌 Basic Electrical & Electronics Engineering Lab</div>
+<div class="units">
+<p><b>LIST OF EXPERIMENTS:</b></p>
+<p>
+1) Verification of KCL and KVL<br>
+2) Verification of Superposition theorem<br>
+3) Measurement of Resistance using Wheat stone bridge<br>
+4) Magnetization characteristics of DC shunt Generator<br>
+5) Measurement of Power and Power factor using Single phase wattmeter<br>
+6) Measurement of Earth Resistance using Megger<br>
+7) Calculation of Electrical Energy for Domestic Premises.</p>
+</div>
+</div>
+
+
+  <div class="sem-block sem-1-2">
+    <h2>📗 I B.Tech – II Semester</h2>
+
+ <!-- 1 -->
+<div class="subject">🗣️ Communicative English</div>
+<div class="units">
+<p>❤️ <strong>Unit I:</strong> <b>Human values. Gift of Magi (Short Story) 
+Listening</b>: 
+Identifying the topic, the context and specific pieces of information by 
+listening to short audio texts and answering a series of questions<br>. 
+<b>Speaking</b>: Asking and answering general questions on familiar topics such as home, 
+family, work, studies and interests; introducing one self and others. <br>
+<b>Reading</b>: Skimming to get the main idea of a text; scanning to look for specific  
+pieces of information. <br>
+<b>Writing</b>: Mechanics of Writing-Capitalization, Spellings, Punctuation-Parts of 
+Sentence <br>
+<b>Grammar</b>: Parts of Speech, Basic Sentence Structures-forming questions 
+<b>Vocabulary</b>: Synonyms, Antonyms, Affixes (Prefixes/Suffixes), Root words.</p>
+
+<p>🎙️ <strong>Unit II:</strong> <b>Speaking skills.NATURE: The Brook by Alfred Tennyson (Poem)</b> 
+Listening: Answering a series of questions about main ideas and supporting ideas 
+after listening to audio texts. <br>
+<b>Speaking</b>: Discussion in pairs /small groups on specific topics followed by short 
+structure talks. <br>
+<b>Reading</b>: Identifying sequence of ideas; recognizing verbal techniques that help 
+to link the ideas in a paragraph together.<br> 
+<b>Writing</b>: Structure of a paragraph - Paragraph writing (specific topics) <br>
+<b>Grammar</b>: Cohesive devices-linkers, use of articles and zero article; prepositions.<br> 
+<b>Vocabulary</b>: Homonyms, Homophones, Homographs.</p>
+
+<p>📖 <strong>Unit III:</strong> <b>Reading skills. BIOGRAPHY: Elon Musk</b> 
+Listening: Listening for global comprehension and summarizing what is listened to.<br> 
+<b>Speaking</b>: Discussing specific topics in pairs or small groups and reporting what is 
+discussed <br>
+<b>Reading</b>: Reading a text in detail by making basic inferences-recognizing and interpreting 
+specific context clues; strategies to use text clues for comprehension.<br> 
+<b>Writing</b>: Summarizing, Note-making, paraphrasing <br>
+<b>Grammar</b>: Verbs - tenses; subject-verb agreement; Compound words, Collocations<br> 
+<b>Vocabulary</b>: Compound words, Collocations</p>
+
+<p>✍️ <strong>Unit IV:</strong> <b>Writing skills. INSPIRATION: The Toys of Peace by Saki</b> 
+Listening: Making predictions while listening to conversations/ transactional dialogues 
+without video; listening with video.<br> 
+<b>Speaking</b>: Role plays for practice of conversational English in academic contexts (formal 
+and informal) - asking for and giving information/directions.<br> 
+<b>Reading</b>: Studying the use of graphic elements in text stocon vey information. <br>
+<b>Writing</b>: Letter Writing, Official Letters, Resumes. <br>
+<b>Grammar</b>: Reporting verbs, Direct & Indirect speech, Active & Passive Voice <br>
+<b>Vocabulary</b>: Words often confused, Jargons.</p>
+
+<p>💼 <strong>Unit V:</strong> <b>Employability skills. MOTIVATION: The Power of Intrapersonal Communication</b> 
+Listening: Identifying key terms, understanding concepts and answering a series of 
+relevant questions. <br>
+<b>Speaking</b>: Formal oral presentations on topics from academic contexts <br>
+<b>Reading</b>: Reading comprehension.<br> 
+<b>Writing</b>: Writing structured essays on specific topics.<br> 
+<b>Grammar</b>: Editing short texts –identifying and correcting common errors <br>
+<b>Vocabulary</b>: Technical Jargons.</p>
+</div>
+
+<!-- 2 -->
+<div class="subject">🧪 Chemistry</div>
+<div class="units">
+<p><strong>Unit I:</strong> <b>Structure and Bonding Models</b>: Fundamentals of Quantum mechanics, Schrodinger Wave equation, significance of 
+Ψ and Ψ2, particle in one dimensional box, molecular orbital theory – bonding in 
+homo- and heteronuclear diatomic molecules – energy level diagrams of O2 and CO, 
+etc. π-molecular orbital’s of butadiene and benzene, calculation of bond order..</p>
+<p><strong>Unit II:</strong> <b>Modern Engineering Materials:</b> .Semiconductors – Introduction, basic concept, application  
+Super conductors-Introduction basic concept, applications.  
+Super capacitors: Introduction, BasicConcept-Classification – Applications. 
+Nano materials: Introduction, classification, properties and applications of 
+Fullerenes, carbon nano tubes and Graphines nanoparticles.</p>
+<p><strong>Unit III:</strong><b> Electrochemistry</b>, Batteries, .Electrochemical cell, Nernst equation, cell potential calculations and numerical 
+problems, potentiometry- potentiometric  titrations (redox titrations), concept of 
+conductivity, conductivity cell, conduct metric titrations (acid-base titrations).  
+Electrochemical sensors – potentiometric sensors with  examples, amperometric 
+sensors with examples.  
+Primary cells – Zinc-air battery, Secondary  cells –lithium-ion batteries- working of 
+the batteries including cell reactions; Fuel cells, hydrogen-oxygenfuel cell– working 
+of the cells. Polymer Electrolyte Membrane Fuel cells (PEMFC). 
+.</p>
+<p><strong>Unit IV:</strong><b> Polymer Chemistry</b>.Introduction to polymers, functionality of monomers, chain growth and step growth 
+polymerization, coordination polymerization, with specific examples and mechanisms of 
+polymer formation. 
+Plastics –Thermo and Thermosetting plastics, Preparation, properties and applications of – 
+PVC, Teflon, Bakelite, Nylon-6,6, carbon fibres. 
+Elastomers–Buna-S, Buna-N–preparation, properties and applications. 
+Conducting polymers – polyacetylene, polyaniline, – mechanism of conduction and 
+applications. Bio-Degradable polymers - Poly Glycolic Acid (PGA), Polyl Lactic Acid PLA).</p>
+<p><strong>Unit V:</strong> <b>Instrumental Methods and Applications:</b>.Electromagnetic spectrum. Absorption of radiation: Beer-Lambert’s law. UV-Visible 
+Spectroscopy, electronic transition, Instrumentation, IR spectroscopies, fundamental 
+modes and selection rules, Instrumentation. Chromatography-Basic Principle, 
+Classification-HPLC: Principle, Instrumentation and Applications.</p>
+</div>
+
+<!-- 3 -->
+<div class="subject">📊 Data Structures</div>
+<div class="units">
+<p><strong>Unit I:</strong> <b>Introduction to Linear Data Structures</b>.: Definition and importance of linear data 
+structures, Abstract data types (ADTs) and their implementation, Overview of time 
+and space complexity analysis for linear data structures. Searching Techniques: Linear 
+& Binary Search, Sorting Techniques: Bubble sort, Selection sort, Insertion Sort.</p>
+<p><strong>Unit II:</strong> <b> Linked Lists</b>.Singly linked lists: representation and operations, doubly linked lists and 
+circular linked lists, Comparing arrays and linked lists, Applications of linked lists..</p>
+<p><strong>Unit III:</strong> <b> Stacks</b>.: Introduction to stacks: properties and operations, implementing stacks using 
+arrays and linked lists, Applications of stacks in expression evaluation, backtracking, 
+reversing list etc..</p>
+<p><strong>Unit IV:</strong><b> Queues and Deques</b>.Queues: Introduction to queues: properties and operations, implementing queues 
+using arrays and linked lists, Applications of queues in breadth-first search, 
+scheduling, etc.  
+Deques: Introduction to deques (double-ended queues), Operations on deques and 
+their applications..</p>
+<p><strong>Unit V:</strong> <b>Trees and Hashing</b>.Trees: Introduction to Trees, Binary Search Tree – Insertion, Deletion & Traversal 
+Hashing: Brief introduction to hashing and hash functions, Collision resolution 
+techniques: chaining and open addressing, Hash tables: basic implementation and 
+operations, Applications of hashing in unique identifier generation, caching, etc.</p>
+</div>
+
+
+<div class="subject">📘 Basic Civil & Mechanical Engineering</div>
+<div class="units">
+  <p><b>Unit I:</b> <b>Basics of civil engineering</b>.Basics of Civil Engineering:  Role of Civil Engineers in Society- Various Disciplines of Civil 
+Engineering- Structural Engineering- Geo-technical Engineering- Transportation Engineering 
+Hydraulics and Water Resources Engineering - Environmental Engineering-Scope of each 
+discipline - Building Construction and Planning- Construction Materials-Cement – 
+Aggregate Bricks- Cement concrete- Steel. Introduction to Prefabricated construction 
+Techniques.</p>
+  <p><b>Unit II:</b> <b>Building materials and surveying.</b>Surveying: Objectives of Surveying- Horizontal Measurements- Angular Measurements 
+Introduction to Bearings Levelling instruments used for levelling - Simple problems 
+on levelling and bearings-Contour mapping.</p>
+  <p><b>Unit III:</b><b> Transportation Engineering and Water Resources and Environmental Engineering: </b>.Transportation Engineering Importance of Transportation in Nation's economic 
+development- Types of Highway Pavements- Flexible Pavements and Rigid Pavements - 
+Simple Differences. Basics of Harbor, Tunnel, Airport, and Railway Engineering. 
+Water Resources and Environmental Engineering: Introduction, Sources of water- Quality of 
+water- Specifications- Introduction to Hydrology–Rainwater Harvesting-Water Storage and 
+Conveyance Structures (Simple introduction to Dams and Reservoirs).</p>
+  <p><b>Unit IV:</b> <b>Introduction to Mechanical Engineering:</b> Role of Mechanical Engineering in Industries and 
+Society- Technologies in different sectors such as Energy, Manufacturing, Automotive, 
+Aerospace, and Marine sectors. 
+Engineering Materials - Metals-Ferrous and Non-ferrous, Ceramics, Composites, Smart 
+materials.</p>
+  <p><b>Unit V:</b> <b>Manufacturing Processes:</b> Principles of Casting, Forming, and joining processes, Machining, 
+Introduction to CNC machines, 3D printing, and Smart manufacturing. 
+Thermal Engineering – working principle of Boilers, Otto cycle, Diesel cycle, Refrigeration 
+and air-conditioning cycles, IC engines, 2-Stroke and 4-Stroke engines, SI/CI Engines, 
+Components of Electric and Hybrid Vehicles..</p>
+<p><b>unit6:</b><b>Power Plants </b>– working principle of Steam, Diesel, Hydro, Nuclear power plants.  
+Mechanical Power Transmission - Belt Drives, Chain, Rope drives, Gear Drives and their 
+applications. 
+Introduction to Robotics - Joints & links, configurations, and applications of robotics.</p>
+</div>
+
+<div class="subject">
+  📘 Differential Equations & Vector Calculus
+</div>
+<div class="units">
+  <p><b>Unit I:</b>  <b> First-order differential equations.</b> Linear differential equations – Bernoulli’s equations- Exact equations and equations 
+reducible to exact form. Applications:   Newton’s Law of cooling – Law of natural 
+growth and decay- Electrical circuits. </p>
+  <p><b>Unit II:</b> <b>Higher-order differential equations</b> Definitions, homogenous and non-homogenous, complimentary function, general 
+solution, particular integral, Wronskian, Method of variation of parameters. 
+Simultaneous linear equations, Applications to L-C-R Circuit problems and Simple 
+Harmonic motion.</p>
+  <p><b>Unit III:</b> <b>Partial differential Equation.</b> Introduction and formation of Partial Differential Equations by elimination of 
+arbitrary constants and arbitrary functions, solutions of first order linear equations 
+using Lagrange’s method. Homogeneous Linear Partial differential equations with 
+constant coefficients.</p>
+  <p><b>Unit IV:</b> <b> Vector Differentiation </b>
+Scalar and vector point functions, vector operator Del, Del applies to scalar point 
+functions- Gradient, Directional derivative, del applied to vector point functions- 
+Divergence and Curl, vector identities..</p>
+  <p><b>Unit V:</b><b>   Vector Integration </b>
+Lwithoutegral-circulation-work done, surface integral-flux, Green’s theorem in the 
+plane (without proof), Stoke’s theorem (without proof), volume integral, Divergence 
+theorem (without proof) and related problems..</p>
+</div>
+
+<div class="side-heading">🧪 Labs</div>
+
+<div class="subject">
+  🧪 Engineering Chemistry Lab
+</div>
+<div class="units">
+  <p>List of chemistry experiments.
+1. Measurement of 10Dq by spectro photo metric method  
+2. Conduct metric titration of strong acid vs. strong base 
+3. Conduct metric titration of weak acid vs. strong base  
+4. Determination of cell constant and conductance of solutions 
+5. Potentiometer - determination of redox potentials and emfs  
+6. Determination of Strength of an acid in Pb-Acid battery  
+7. Preparation of a Bakelite 
+8. Verify Lambert-Beer’s law 
+9. Wavelength measurement of sample through UV-Visible Spectroscopy  
+10. Identification of simple organic compounds by IR  
+11. Preparation of nanomaterials by precipitation method 
+12. Estimation of Ferrous Iron by Dichrometry.
+</p>
+</div>
+
+<div class="subject">
+  🗣️ English Language & Communication Lab
+</div>
+<div class="units">
+<p>.1. Vowels & Consonants 
+2. Neutralization/Accent Rules 
+3. Communication Skills & JAM 
+4. Role Play or Conversational Practice 
+5. E-mail Writing 
+6. Resume Writing, Cover letter, SOP 
+7. Group Discussions-methods & practice 
+8. Debates - Methods & Practice 
+9. PPT Presentations/ Poster Presentation 
+10. Interviews Skills..</p>
+</div>
+
+<div class="subject">
+  🛠️ Engineering Workshop
+</div>
+<div class="units">
+  <p>.1. Demonstration: Safety practices and precautions to be observed in workshop.<br> 
+2. Wood Working: Familiarity with different types of woods and tools used in 
+woodworking and make following joints.<br> 
+a) Half – Lap joint             
+joint or Bridle joint 
+b) Mortise and Ten on joint      
+c) Corner Dovetail <br> 
+3. Sheet Metal Working: Familiarity with different types of tools used in sheet 
+metalworking, Developments of following sheet metal job from GI sheets. 
+a) Tapered tray                
+b) Conical funnel    c) Elbow pipe      
+d) Brazing <br>
+4. Fitting: Familiarity with different types of tools used in fitting and do the 
+following fitting exercises.<br> 
+a)  V-fit<br>                
+b) Dovetail fit <br>               
+c) Semi-circular fit  <br>         
+d) Bicycle tire puncture and change of two-wheeler type <br>
+5. Electrical Wiring: Familiarity with different types of basic electrical circuits and 
+make the following connections.<br> 
+a) Parallel and series <br>
+d) Tube light <br>
+b) Two-way switch <br>               
+e) Three phase motor <br>             
+c) God own lighting <br>
+f) Soldering of wires <br>
+6. Foundry Trade: Demonstration and practice on Moulding tools and processes, 
+Preparation of Green Sand Moulds for given Patterns.<br> 
+7. Welding Shop: Demonstration and practice on Arc Welding and Gas welding. 
+Preparation of Lap joint and Butt joint. <br>
+8. Plumbing: Demonstration and practice of Plumbing tools, Preparation of Pipe 
+joints with coupling for same diameter and with reducer for different diameters..</p>
+</div>
+</div>
+</div>
+
+   <div class="year-block year-2">
+
+
+  <div class="sem-block sem-2-1">
+<h2>🟢 II B.Tech – I Semester (2-1)</h2>
+<!-- 1 -->
+<div class="subject">📘 Discrete Mathematics</div>
+<div class="units">
+<p><strong>Unit I: Mathematical Logic</strong><br>
+Introduction, Statements and Notation, Connectives, Well-formed formulas, Tautology, 
+Duality law, Equivalence, Implication, Normal Forms, Functionally complete set of 
+connectives, Inference Theory of Statement Calculus, Predicate Calculus, Inference theory of 
+Predicate Calculus.</p>
+
+<p><strong>Unit II: Set Theory, Relations & Functions</strong><br>
+The Principle of Inclusion- Exclusion, Pigeon hole principle and its application, Functions 
+composition of functions, Inverse Functions, Recursive Functions, Lattices and its properties. 
+Algebraic structures: Algebraic systems-Examples and General Properties, Semi groups and 
+Monoids, groups, sub groups, homomorphism, Isomorphism.</p>
+
+<p><strong>Unit III: Elementary Combinatorics</strong><br>
+Combinations and Permutations, Enumeration of Combinations and Permutations, 
+Enumerating Combinations and Permutations with Repetitions, Enumerating Permutations 
+with Constrained Repetitions, Binomial Coefficients, The Binomial and Multinomial 
+Theorems.</p>
+
+<p><strong>Unit IV: recurrance relation</strong><br>
+Generating Functions of Sequences, Calculating Coefficients of Generating Functions, 
+Recurrence relations, Solving Recurrence Relations by Substitution and Generating functions, 
+The Method of Characteristic roots, Solutions of Inhomogeneous, Recurrence Relations.</p>
+
+<p><strong>Unit V: graph theroy</strong><br>
+Basic Concepts, Isomorphism and Subgraphs, Trees and their Properties, Spanning Trees, 
+Directed Trees, Binary Trees, Planar Graphs, Euler’s Formula, Multigraphs and Euler 
+Circuits, Hamiltonian Graphs.</p>
+</div>
+
+<!-- 2 -->
+<div class="subject">🤖 Artificial Intelligence</div>
+<div class="units">
+<p><strong>Unit I:</strong> <b>INTRODUCTION TO AI <b/>AI problems, foundation of AI and history of AI intelligent agents: Agents and 
+Environments, the concept of rationality, the nature of environments, structure of agents, 
+problem solving agents, problem formulation.</p>
+
+<p><strong>Unit II:</strong><b> Searching-</b>Searching for solutions, uniformed search strategies –Breadth first search, depth 
+first Search, Search with partial information (Heuristic search) Hill climbing, A* ,AO* 
+Algorithms, Problem reduction, Game Playing-Adversial search, Games, mini-maxalgorithm, 
+optimal decisions in multiplayer games, Problem in Game playing, Alpha-Beta pruning, 
+Evaluation functions.</p>
+
+<p><strong>Unit III:</strong> <b>Representation of Knowledge:</b> Knowledge representation issues, predicate logic-logic 
+programming, semantic nets-frames and inheritance, constraint propagation, representing 
+knowledge using rules, rules based deduction systems. Reasoning under uncertainty, review 
+of probability, Bayes’ probabilistic interferences and dempstershafer theory.</p>
+
+<p><strong>Unit IV:</strong> <b>Logic Concepts: First order logic</b>. Inference in first order logic, propositional vs. first order 
+inference, unification & lifts forward chaining, Backward chaining, Resolution, Learning 
+from observation Inductive learning, Decision trees, Explanation based learning, Statistical 
+Learning methods, Reinforcement Learning.</p>
+
+<p><strong>Unit V:</strong> <b>Expert Systems:</b> Architecture of expert systems, Roles of expert systems –Knowledge 
+Acquisition Meta knowledge Heuristics. Typical expert systems –MYCIN, DART, XCON: 
+Expert systems shells.</p>
+</div>
+
+<!-- 3 -->
+<div class="subject">🌍 Universal Human Values</div>
+<div class="units">
+<p><strong>Unit 1:</strong> <b>INTRODUCTION TO VALUE EDUCATION</b>Lecture 1: Right Understanding, Relationship and Physical Facility (Holistic Development 
+and the Role of Education)  
+Lecture 2: Understanding Value Education<br>  
+Tutorial 1: Practice Session PS1 Sharing about Oneself  <br>  
+Lecture 3: self-exploration as the Process for Value Education<br>  
+  
+Lecture 4: Continuous Happiness and Prosperity – the Basic Human Aspirations <br>  
+ 
+Tutorial 2: Practice Session PS2 Exploring Human Consciousness<br>  
+  
+Lecture 5: Happiness and Prosperity – Current Scenario<br>  
+  
+Lecture 6: Method to Fulfill the Basic Human Aspiration<br>  
+s  
+Tutorial 3: Practice Session PS3 Exploring Natural Acceptance.<br>  
+ 
+.</p>
+<p><strong>Unit 2:</strong> <b> Harmony in Human Being.</b>
+Lecture 7: Understanding Human being as the Co-existence of the self and the body.<br>  
+  
+Lecture 8: Distinguishing between the Needs of the self and the body  <br>  
+
+Tutorial 4: Practice Session PS4 Exploring the difference of Needs of self and body.  <br>  
+
+Lecture 9: The body as an Instrument of the self <br>  
+ 
+Lecture 10: Understanding Harmony in the self  <br>  
+
+Tutorial 5: Practice Session PS5 Exploring Sources of Imagination in the self <br>  
+ 
+Lecture 11: Harmony of the self with the body <br>  
+ 
+Lecture 12: Programme to ensure self-regulation and Health<br>  
+  
+Tutorial 6: Practice Session PS6 Exploring Harmony of self with the body</p><br>  
+
+<p><strong>Unit 3:</strong> <b> Harmony in Family and Society.</b><br>  
+
+Lecture 13: Harmony in the Family – the Basic Unit of Human Interaction<br>  
+  
+Lecture 14: 'Trust' – the Foundational Value in Relationship <br>  
+ 
+Tutorial 7: Practice Session PS7 Exploring the Feeling of Trust <br>  
+ 
+Lecture 15: 'Respect' – as the Right Evaluation <br>  
+ 
+Tutorial 8: Practice Session PS8 Exploring the Feeling of Respect <br>  
+ 
+Lecture 16: Other Feelings, Justice in Human-to-Human Relationship <br>  
+ 
+Lecture 17: Understanding Harmony in the Society <br>  
+
+Lecture 18: Vision for the Universal Human Order <br>  
+ 
+Tutorial 9: Practice Session PS9 Exploring Systems to fulfil Human Goa.<br>  
+</p>
+<p><strong>Unit 4:</strong> <b>Harmony in Nature/Existence.</b> Lecture 19: Understanding Harmony in the Nature  
+Lecture 20: Interconnectedness, self-regulation and Mutual Fulfilment among the Four 
+Orders of Nature <br>  
+ 
+Tutorial 10: Practice Session PS10 Exploring the Four Orders of Nature  <br>  
+
+Lecture 21: Realizing Existence as Co-existence at All Levels  <br>  
+
+Lecture 22: The Holistic Perception of Harmony in Existence <br>  
+ 
+Tutorial 11: Practice Session PS11 Exploring Co-existence in Existence<br>  
+.</p>
+<p><strong>Unit 5:</strong> <b> Implications of the Holistic Understanding<br>  
+ </b>  
+Lecture 23: Natural Acceptance of Human Values <br>  
+ 
+Lecture 24: Definitiveness of (Ethical) Human Conduct  <br>  
+
+Tutorial 12: Practice Session PS12 Exploring Ethical Human Conduct<br>  
+  
+Lecture 25: A Basis for Humanistic Education, Humanistic Constitution and Universal
+Human Order  <br>  
+
+Lecture 26: Competence in Professional Ethics  <br>  
+
+Tutorial 13: Practice Session PS13 Exploring Humanistic Models in Education <br>  
+ 
+Lecture 27: Holistic Technologies, Production Systems and Management Models-Typical 
+Case Studies  <br>  
+
+Lecture 28: Strategies for Transition towards Value-based Life and Profession<br>  
+  
+Tutorial 14: Practice Session PS14 Exploring Steps of Transition towards Universal Human 
+Order..</p>
+</div>
+
+<!-- 4 -->
+<div class="subject">🧠 Advanced Data Structures & Algorithm Analysis</div>
+<div class="units">
+<p><strong>Unit I:</strong> <b>Algorithm Analysis & Complexity</b>, Introduction to Algorithm Analysis, Space and Time Complexity analysis, Asymptotic 
+Notations. 
+AVL Trees –Creation, Insertion, Deletion operations and Applications 
+B-Trees –Creation, Insertion, Deletion operations and Applications.</p>
+<p><strong>Unit II:</strong> <b>Heap Trees, Graphs, Divide and Conquer</b>Heap Trees (Priority Queues) –Min and Max Heaps, Operations and Applications   
+Graphs –Terminology, Representations, Basic Search and Traversals, Connected Components 
+and Biconnected Components, applications 
+Divide and Conquer: The General Method, Quick Sort, Merge Sort, Strassen’s matrix 
+multiplication, Convex Hull..</p>
+<p><strong>Unit III:</strong> <b>Greedy Techniques, Dynamic Programming</b>. General Method, Job Sequencing with deadlines, Knapsack Problem, 
+Minimum cost spanning trees, Single Source Shortest Paths 
+Dynamic Programming: General Method, All pairs shortest paths, Single Source Shortest 
+Paths –General Weights (Bellman Ford Algorithm), Optimal Binary Search Trees, 0/1 
+Knapsack, String Editing, Travelling Salesperson problem. .</p>
+<p><strong>Unit IV:</strong> <b>Backtracking and Branch & Bound</b>. General Method, 8-Queens Problem, Sum of Subsets problem, Graph 
+Coloring, 0/1 Knapsack Problem 
+Branch and Bound: The General Method, 0/1 Knapsack Problem, Travelling Salesperson 
+problem.</p>
+<p><strong>Unit V:</strong><b> NP Hard and NP Complete Problems</b>NP Hard and NP Complete Problems: Basic Concepts, Cook’s theorem 
+NP Hard Graph Problems: Clique Decision Problem (CDP), Chromatic Number Decision 
+Problem (CNDP), Traveling Salesperson Decision Problem (TSP) 
+NP Hard Scheduling Problems: Scheduling Identical Processors, Job Shop Scheduling..</p>
+</div>
+
+<!-- 5 -->
+<div class="subject">
+🌱 Environmental Science
+</div>
+
+<div class="units">
+<p><b>Unit I: Introduction to Environmental Studies</b><br>
+Multidisciplinary nature of environmental studies, scope and importance, need for public awareness, environmental ethics.</p>
+
+<p><b>Unit II: Ecosystems</b><br>
+Concept, structure and function of ecosystem, energy flow, food chains, food webs, ecological pyramids, forest, grassland, desert and aquatic ecosystems.</p>
+
+<p><b>Unit III: Natural Resources</b><br>
+Renewable and non-renewable resources, forest, water, mineral, food, energy and land resources, conservation methods.</p>
+
+<p><b>Unit IV: Environmental Pollution</b><br>
+Air, water, soil, noise, thermal pollution, nuclear hazards, solid waste management, role of government and NGOs.</p>
+
+<p><b>Unit V: Social Issues & Sustainable Development</b><br>
+Sustainable development, climate change, global warming, ozone depletion, environmental acts, population growth.</p>
+</div>
+
+
+<!-- 6 -->
+
+<div class="subject">
+☕ Object Oriented Programming through Java
+</div>
+
+<div class="units">
+<p><b>Unit I: Introduction to Javaand object oriented concepts</b><br>
+Object Oriented Programming: Basic concepts, Principles, Program Structure in Java: 
+Introduction, Writing Simple Java Programs, Elements or Tokens in Java Programs, Java 
+Statements, Command Line Arguments, User Input to Programs, Escape Sequences 
+Comments, Programming Style. 
+Data Types, Variables, and Operators :Introduction, Data Types in Java, Declaration of 
+Variables, Data Types, Type Casting, Scope of Variable Identifier, Literal Constants, 
+Symbolic Constants, Formatted Output with printf() Method, Static Variables and 
+Methods, Attribute Final,  Introduction to Operators, Precedence and Associativity of 
+Operators, Assignment Operator ( = ), Basic Arithmetic Operators, Increment (++) and 
+Decrement (--) Operators, Ternary Operator, Relational Operators, Boolean Logical 
+Operators, Bitwise Logical Operators.  
+Control Statements: Introduction, if Expression, Nested if Expressions, if–else Expressions, 
+Ternary Operator?:, Switch Statement, Iteration Statements, while Expression, do–while 
+Loop, for Loop, Nested for Loop, For–Each for Loop, Break Statement, Continue Statement. .</p>
+
+<p><b>Unit II: classes objects and methods</b><br>
+Introduction, Class Declaration and Modifiers, Class Members, 
+Declaration of Class Objects, Assigning One Object to Another, Access Control for Class 
+Members, Accessing Private Members of Class, Constructor Methods for Class, 
+Overloaded Constructor Methods, Nested Classes, Final Class and Methods, Passing 
+Arguments by Value and by Reference, Keyword this. 
+Methods: Introduction, Defining Methods, Overloaded Methods, Overloaded Constructor 
+Methods, Class Objects as Parameters in Methods, Access Control, Recursive Methods, 
+Nesting of Methods, Overriding Methods, Attributes Final and Static..</p>
+
+<p><b>Unit III: Arrays,Inheritance and Interface</b><br>
+ Array Introduction, Declaration and Initialization of Arrays, Storage of Array in 
+Computer Memory, Accessing Elements of Arrays, Operations on Array Elements, 
+Assigning Array to Another Array, Dynamic Change of Array Size, Sorting of Arrays, 
+Search for Values in Arrays, Class Arrays, Two-dimensional Arrays, Arrays of Varying 
+Lengths, Three-dimensional Arrays, Arrays as Vectors. 
+Inheritance: Introduction, Process of Inheritance, Types of Inheritances, Universal Super 
+Class-Object Class, Inhibiting Inheritance of Class Using Final, Access Control and 
+Inheritance, Multilevel Inheritance, Application of Keyword Super, Constructor Method 
+and Inheritance, Method Overriding, Dynamic Method Dispatch, Abstract Classes, 
+Interfaces and Inheritance.  
+Interfaces: Introduction, Declaration of Interface, Implementation of Interface, Multiple 
+Interfaces, Nested Interfaces, Inheritance of Interfaces, Default Methods in Interfaces, Static 
+Methods in Interface, Functional Interfaces, Annotations  Packages, interfaces, multiple inheritance, abstract classes, wrapper classes.</p>
+
+<p><b>Unit IV: Packages in Java ,Exception Handling & Multithreading</b><br>
+Packages and Java Library: Introduction, Defining Package, Importing Packages and 
+Classes into Programs, Path and Class Path, Access Control, Packages in Java SE, Java.lang 
+Package and its Classes, Class Object, Enumeration, class Math, Wrapper Classes, Auto
+boxing and Auto-unboxing, Java util Classes and Interfaces, Formatter Class, Random 
+Class, Time Package, Class Instant (java.time.Instant), Formatting for Date/Time in Java, 
+Temporal Adjusters Class, Temporal Adjusters Class. 
+Exception Handling: Introduction, Hierarchy of Standard Exception Classes, Keywords 
+throws and throw, try, catch, and finally Blocks, Multiple Catch Clauses, Class Throwable, 
+Unchecked Exceptions, Checked Exceptions. 
+Java I/O and File: Java I/O API, standard I/O streams, types, Byte streams, Character 
+streams, Scanner class, Files in Java.</p>
+
+<p><b>Unit V:  string handeling,Multi thread ,java FX GUI</b><br>
+String Handling in Java: Introduction, Interface Char Sequence, Class String, Methods for 
+Extracting Characters from Strings, Comparison, Modifying, Searching; Class String 
+Buffer. 
+Multithreaded Programming: Introduction, Need for Multiple Threads Multithreaded 
+Programming for Multi-core Processor, Thread Class, Main Thread- Creation of  New 
+Threads, Thread States, Thread Priority-Synchronization, Deadlock and Race Situations, 
+Inter-thread Communication -Suspending, Resuming, and Stopping of Threads. 
+Java Database Connectivity: Introduction, JDBC Architecture, Installing MySQL and 
+MySQL Connector/J, JDBC Environment Setup, Establishing JDBC Database Connections, 
+ResultSet Interface 
+Java FX GUI: Java FX Scene Builder, Java FX App Window Structure, displaying text and 
+image, event handling laying out nodes in scene graph, mouse events.</p>
+</div>
+
+<div class="side-heading">🧪 Labs</div>
+
+
+<!-- 7 -->
+<div class="subject">
+☕ Java Programming Lab
+</div>
+
+<div class="units">
+<p>
+1. Java basics and control structures<br>
+2. Classes and objects<br>
+3. Constructors and inheritance<br>
+4. Polymorphism programs<br>
+5. Interfaces and packages<br>
+6. Exception handling<br>
+7. Multithreading<br>
+8. File handling<br>
+9. GUI programs (AWT/Swing)<br>
+10. Mini projects
+</p>
+</div>
+
+<!-- 8 -->
+
+<div class="subject">
+🧠 Advanced Data Structures & Algorithm Analysis Lab
+</div>
+
+<div class="units">
+<p>
+1. Time & space complexity analysis<br>
+2. AVL trees<br>
+3. B-Trees<br>
+4. Heap implementation<br>
+5. Graph algorithms (BFS, DFS)<br>
+6. Greedy algorithms<br>
+7. Dynamic programming<br>
+8. Backtracking<br>
+9. Branch and bound<br>
+10. NP-Complete problems
+</p>
+</div>
+
+<!-- 9 -->
+<div class="subject">
+🐍 Python Programming Lab
+</div>
+
+<div class="units">
+<p>
+1. Python syntax and data types<br>
+2. Control statements<br>
+3. Functions and recursion<br>
+4. Lists, tuples, dictionaries<br>
+5. String manipulation<br>
+6. File handling<br>
+7. Exception handling<br>
+8. OOP in Python<br>
+9. Modules and packages<br>
+10. Mini projects
+</p>
+</div>
+</div>
+
+
+
+
+<div class="sem-block sem-2-2">
+
+<h2>🟢 II B.Tech – II Semester (2-2)</h2>
+
+<!-- 1 -->
+<div class="subject">📈 Machine Learning</div>
+<div class="units">
+<p><strong>Unit I:</strong> <B>Introduction to Machine Learning:</b> Evolution of Machine Learning, Paradigms 
+for ML, Learning by Rote, Learning by Induction, Reinforcement Learning, Types of 
+Data, Matching, Stages in Machine Learning, Data Acquisition, Feature Engineering, 
+Data Representation, Model Selection, Model Learning, Model Evaluation, Model 
+Prediction, Search and Learning, Data Sets.</p>
+
+<p><strong>Unit II:</strong> <b>Nearest Neighbor-Based Models:</b> Introduction to Proximity Measures, Distance 
+Measures, Non-Metric Similarity Functions, Proximity Between Binary Patterns, Different 
+Classification Algorithms Based on the Distance Measures, K-Nearest Neighbor 
+Classifier, Radius Distance Nearest Neighbor Algorithm, KNN Regression, Performance 
+of Classifiers, Performance of Regression Algorithms.</p>
+
+<p><strong>Unit III:</strong> <b>Decision Tree and Classification Models:</b> Decision Trees for Classification, Impurity 
+Measures, Properties, Regression Based on Decision Trees, Bias–Variance Trade-off, 
+Random Forests for Classification and Regression. Bayes Classifier, Naive Bayes 
+Classifier.</p>
+
+<p><strong>Unit IV:</strong><b> Linear Discriminants:</b> Perceptron Classifier, Support Vector Machines, Kernel Trick, 
+Logistic Regression, Linear Regression, Multi-Layer Perceptrons, Backpropagation.</p>
+
+<p><strong>Unit V:</strong><b> Clustering:</b> Partitioning of Data, K-Means, Fuzzy C-Means, EM Algorithm, Spectral 
+Clustering.</p>
+</div>
+
+<!-- 2 -->
+<div class="subject">🗄️ Database Management Systems</div>
+<div class="units">
+<p><strong>Unit I:</strong> <b>Introduction AND Entity Relation model:</b> Database system, Characteristics (Database Vs File System), 
+Database Users, Advantages of Database systems, Database applications. Brief introduction of 
+different Data Models; Concepts of Schema, Instance and data independence; Three tier schema 
+architecture for data independence; Database system structure, environment, Centralized and 
+Client Server architecture for the database. 
+Entity Relationship Model: Introduction, Representation of entities, attributes, entity set, 
+relationship, relationship set, constraints, sub classes, super class, inheritance, specialization, 
+generalization using ER Diagrams..</p>
+
+<p><strong>Unit II:</strong> <b>Relational Model and basic sql</b>: Introduction to relational model, concepts of domain, attribute, 
+tuple, relation, importance of null values, constraints (Domain, Key constraints, integrity 
+constraints) and their importance, Relational Algebra, Relational Calculus. BASIC SQL:Simple 
+Database schema, data types, table definitions (create, alter), different DML operations (insert, 
+delete, update)..</p>
+
+<p><strong>Unit III:</strong> <b>SQL</b>.:Basic SQL querying (select and project) using where clause, arithmetic & 
+logical operations, SQL functions(Date and Time, Numeric, String conversion).Creating tables 
+with relationship, implementation of key and integrity constraints, nested queries, sub queries, 
+grouping, aggregation, ordering, implementation of different types of joins, view(updatable and 
+non-updatable), relational set operations. 
+</p>
+
+<p><strong>Unit IV:</strong> <b>Schema Refinement (Normalization)</b>:Purpose of Normalization or schema 
+refinement, concept of functional dependency, normal forms based on functional 
+dependencyLossless join and dependency preserving decomposition, (1NF, 2NF and 3 NF), 
+concept of surrogate key, Boyce-Codd normal form(BCNF), MVD, Fourth normal form(4NF), Fifth 
+Normal Form (5NF)..</p>
+
+<p><strong>Unit V:</strong><b>Transaction Concept:</b>Transaction State, ACID properties, Concurrent Executions, 
+Serializability, Recoverability, Implementation of Isolation, Testing for Serializability, lock based, 
+time stamp based, optimistic, concurrency protocols, Deadlocks, Failure Classification, Storage, 
+Recovery and Atomicity, Recovery algorithm. 
+Introduction to Indexing Techniques: B+ Trees, operations on B+Trees, Hash Based Indexing.</p>
+</div>
+
+<!-- 3 -->
+<div class="subject">📈 Optimization Techniques</div>
+<div class="units">
+<p><strong>Unit I:</strong><b>Introduction:</b> Meaning, Nature, Scope & Significance of Optimization - Typical applications. The 
+Linear Programming Problem – Introduction, Formulation of Linear Programming problem, 
+Limitations of L.P.P, Graphical method, Simplex method: Maximization and Minimization 
+model(exclude Duality problems), Big-M method and Two Phase method..</p>
+<p><strong>Unit II:</strong> Transportation Problem, Assignment Problem.</b>: Introduction, Transportation Model, Finding initial basic feasible 
+solutions, moving towards optimality, Unbalanced Transportation problems, Transportation 
+problems with maximization, Degeneracy. Assignment Problem – Introduction, Mathematical 
+formulation of the problem, Solution of an Assignment problem, Hungarian Algorithm, Multiple 
+Solution, Unbalanced Assignment problems, Maximization in Assignment Model.</p>
+<p><strong>Unit III:</strong> <b>Sequencing </b>, Johnsons Algorithm for n Jobs and Two machines, n Jobs and Three 
+Machines, n jobs through m machines, Two jobs and m Machines Problems. </p>
+<p><strong>Unit IV:</strong> <b>Game Theory.</b>Concepts, Definitions and Terminology, Two Person Zero Sum Games, Pure 
+Strategy Games (with Saddle Point), Principal of Dominance, Mixed Strategy Games (Game 
+without Saddle Point), Significance of Game Theory in Managerial Application. </p>
+<p><strong>Unit V:</strong> <b>Project Management</b> Network Analysis – Definition –objectives -Rules for constructing network 
+diagram- Determining Critical Path – Earliest &Latest Times – Floats - Application of CPM and 
+PERT techniques in Project Planning and Control – PERT Vs CPM. (Exclude Project Crashing)..</p>
+</div>
+
+<!-- 4 -->
+<div class="subject">
+  💡 Design Thinking & Innovation
+</div>
+
+<div class="units">
+<p><b>Unit I: Introduction to Design Thinking</b><br>
+Design thinking concepts, need for innovation, creativity in engineering, traditional vs design-based problem solving.</p>
+
+<p><b>Unit II: Empathy & Problem Definition</b><br>
+User-centered design, empathy mapping, observation techniques, identifying user needs, framing design problems.</p>
+
+<p><b>Unit III: Ideation Techniques</b><br>
+Brainstorming, mind mapping, SCAMPER technique, divergent and convergent thinking, idea evaluation.</p>
+
+<p><b>Unit IV: Prototyping</b><br>
+Low and high fidelity prototypes, rapid prototyping, testing, iterative design process.</p>
+
+<p><b>Unit V: Innovation & Business Design</b><br>
+Product lifecycle, innovation management, business model canvas, sustainability, case studies.</p>
+</div>
+
+<!-- 5 -->
+
+<div class="subject">
+  🧮 Digital Logic & Computer Organisation
+</div>
+
+<div class="units">
+<p><b>Unit I: Digital Logic Fundamentals</b><br>
+Data Representation: Binary Numbers, Fixed Point Representation. Floating Point Representation. 
+Number base conversions, Octal and Hexadecimal Numbers, components, Signed binary 
+numbers, Binary code. 
+Digital Logic Circuits-I: Basic Logic Functions, Logic gates, universal logic gates, Minimization of 
+Logic expressions. K-Map Simplification, Combinational Circuits, Decoders, Multiplexers.</p>
+
+<p><b>Unit II: DIGITAL LOGIC CIRCUIT and BASIC STRUCTURE OF COMPUTER</b><br>
+Digital Logic Circuits-II: Sequential Circuits, Flip-Flops, Binary counters, Registers, Shift 
+Registers, Ripple counters 
+Basic Structure of Computers: Computer Types, Functional units, Basic operational concepts, Bus 
+structures, Software, Performance, multiprocessors and multi computers, Computer Generations, 
+Von- Neumann Architecture..</p>
+
+<p><b>Unit III: Basic Computer Arthemetic and processor organization</b><br>
+Computer Arithmetic : Addition and Subtraction of Signed Numbers, Design of Fast Adders, 
+Multiplication of Positive Numbers, Signed-operand Multiplication, Fast Multiplication, Integer 
+Division, Floating-Point Numbers and Operations 
+Processor Organization: Fundamental Concepts, Execution of a Complete Instruction, Multiple
+Bus Organization, Hardwired Control and Multi programmed Control. .</p>
+
+<p><b>Unit IV: THE MEMORY Organisation</b><br>
+The Memory Organization: Basic Concepts, Semiconductor RAM Memories, Read-Only 
+Memories, Speed, Size and Cost, Cache Memories, Performance Considerations, Virtual Memories, 
+Memory Management Requirements, Secondary Storage..</p>
+
+<p><b>Unit V: I/O Organisation</b><br>
+Accessing I/O Devices, Interrupts, Processor Examples, Direct 
+Memory Access, Buses, Interface Circuits, Standard I/O Interfaces. </p>
+</div>
+
+<!-- 6 -->
+<div class="subject">
+  📊 Probability & Statistics
+</div>
+
+<div class="units">
+<p><b>Unit I: Descriptive Statistics</b><br>
+Statistics Introduction, Population vs Sample, Collection of data, primary and secondary data, 
+Measures of Central tendency, Measures of Variability (spread or variance) Skewness, Kurtosis, 
+correlation, correlation coefficient, rank correlation, regression coefficients, method of least 
+squares, regression lines.</p>
+
+<p><b>Unit II: Probability</b><br>
+Probability, probability axioms, addition law and multiplicative law of probability, conditional 
+probability,Baye’s theorem, random variables (discrete and continuous), probability density 
+functions, properties, mathematical expectation..</p>
+
+<p><b>Unit III:Probability Distributions  </b><br>
+ Probability distributions: Binomial, Poisson and Normal-their properties (Chebyshevs inequality). 
+Approximation  of the binomial distribution to normal distribution. .</p>
+
+<p><b>Unit IV: Estimation and Testing of Hypothesis, Large Sample Tests </b><br>
+ Estimation-parameters, statistics, sampling distribution, point estimation, Formulation of null 
+hypothesis, alternative hypothesis, the critical and acceptance regions, level of significance, two 
+types of errors and power of the test. Large Sample Tests: Test for single proportion, difference of 
+proportions, test for single mean and difference of means. Confidence interval for parameters in 
+one sample and two sample problems.</p>
+
+<p><b>Unit V: Small Sample Tests </b><br>
+ Student t-distribution (test for single mean, two means and paired t-test), testing of equality of 
+variances (F-test), χ2 - test for goodness of fit, χ2 - test for independence of attributes.</p>
+</div>
+
+<div class="side-heading">PROJECTS</div>
+<div class="subject">🎯COMMUNITY SERCIVES  PROJECT</div>
+<div class="side-heading">🧪 Labs</div>
+<!-- 7 -->
+<div class="subject">
+  🌐 Full Stack Development Lab
+</div>
+
+<div class="units">
+  <ol>
+    <li>
+      <strong>HTML Basics</strong>
+      <ul>
+        <li>Create HTML programs using lists: ordered, unordered, nested and definition lists</li>
+        <li>Use hyperlinks with <code>href</code> and <code>target</code> attributes</li>
+      </ul>
+    </li>
+
+    <li>
+      <strong>Images and Image Gallery</strong>
+      <ul>
+        <li>Insert images with specific height and width</li>
+        <li>Create image thumbnails (100×100 pixels)</li>
+        <li>Link thumbnails to full-size images</li>
+        <li>Design an image gallery using HTML</li>
+      </ul>
+    </li>
+
+    <li>
+      <strong>HTML Tables</strong>
+      <ul>
+        <li>Create tables using <code>table</code>, <code>tr</code>, <code>td</code>, <code>th</code></li>
+        <li>Use table attributes: border, rowspan, colspan</li>
+        <li>Design a timetable using tables</li>
+      </ul>
+    </li>
+
+    <li>
+      <strong>HTML Forms</strong>
+      <ul>
+        <li>Create forms using input elements</li>
+        <li>Use text boxes, radio buttons, checkboxes, dropdowns</li>
+        <li>Add submit and reset buttons</li>
+      </ul>
+    </li>
+
+    <li>
+      <strong>Form Validation</strong>
+      <ul>
+        <li>Validate Name (alphabet + alphanumeric, min length)</li>
+        <li>Validate Mobile Number (10 digits)</li>
+        <li>Validate Email format (example@domain.com)</li>
+      </ul>
+    </li>
+
+    <li>
+      <strong>CSS Styling</strong>
+      <ul>
+        <li>Apply internal and external CSS</li>
+        <li>Use colors, fonts, borders, padding and margins</li>
+        <li>Create responsive layouts</li>
+      </ul>
+    </li>
+
+    <li>
+      <strong>JavaScript Basics</strong>
+      <ul>
+        <li>JavaScript functions and events</li>
+        <li>DOM manipulation</li>
+        <li>Event handling using buttons</li>
+      </ul>
+    </li>
+
+    <li>
+      <strong>JavaScript Programs</strong>
+      <ul>
+        <li>Factorial of a number</li>
+        <li>Fibonacci series</li>
+        <li>Prime numbers</li>
+        <li>Palindrome check</li>
+      </ul>
+    </li>
+
+    <li>
+      <strong>Mini Project</strong>
+      <ul>
+        <li>Develop a basic full stack web application</li>
+        <li>Use HTML, CSS and JavaScript</li>
+        <li>Apply form validation and dynamic content</li>
+      </ul>
+    </li>
+  </ol>
+</div>
+
+
+<!-- 8 -->
+<!-- Machine Learning Lab -->
+<div class="subject">
+  🤖 Machine Learning Lab
+</div>
+
+<div class="units">
+  <ol>
+    <li>
+      <strong>Statistical Foundations</strong>
+      <ul>
+        <li>Central Tendency Measures: Mean, Median, Mode</li>
+        <li>Measures of Dispersion: Variance, Standard Deviation</li>
+      </ul>
+    </li>
+
+    <li>
+      <strong>Data Pre-processing Techniques</strong>
+      <ul>
+        <li>Handling missing values</li>
+        <li>Data normalization and standardization</li>
+        <li>Discretization of continuous data</li>
+        <li>Outlier detection and elimination</li>
+        <li>Feature selection techniques</li>
+      </ul>
+    </li>
+
+    <li>
+      <strong>Supervised Learning – Classification</strong>
+      <ul>
+        <li>Apply K-Nearest Neighbors (KNN) algorithm</li>
+        <li>Apply Naïve Bayes classification algorithm</li>
+        <li>Apply Support Vector Machine (SVM) for classification</li>
+      </ul>
+    </li>
+
+    <li>
+      <strong>Supervised Learning – Regression</strong>
+      <ul>
+        <li>Simple Linear Regression</li>
+        <li>Multiple Linear Regression</li>
+        <li>Decision Tree Regression</li>
+        <li>Random Forest Regression</li>
+      </ul>
+    </li>
+
+    <li>
+      <strong>Decision Tree Algorithms</strong>
+      <ul>
+        <li>Decision tree for classification problems</li>
+        <li>Decision tree for regression problems</li>
+        <li>Parameter tuning for better performance</li>
+      </ul>
+    </li>
+
+    <li>
+      <strong>Ensemble Learning</strong>
+      <ul>
+        <li>Random Forest algorithm for classification</li>
+        <li>Random Forest algorithm for regression</li>
+      </ul>
+    </li>
+
+    <li>
+      <strong>Neural Networks</strong>
+      <ul>
+        <li>Single Layer Perceptron algorithm</li>
+        <li>Multi-Layer Perceptron (MLP)</li>
+        <li>Performance evaluation of neural networks</li>
+      </ul>
+    </li>
+
+    <li>
+      <strong>Unsupervised Learning</strong>
+      <ul>
+        <li>K-Means clustering algorithm</li>
+        <li>Expectation-Maximization (EM) based clustering</li>
+        <li>Cluster evaluation techniques</li>
+      </ul>
+    </li>
+
+    <li>
+      <strong>Performance Evaluation</strong>
+      <ul>
+        <li>Confusion matrix</li>
+        <li>Accuracy, Precision, Recall, F1-Score</li>
+        <li>Cross-validation techniques</li>
+      </ul>
+    </li>
+
+    <li>
+      <strong>Mini Project</strong>
+      <ul>
+        <li>Implement a real-world ML problem</li>
+        <li>Apply preprocessing, training and evaluation</li>
+        <li>Analyze and interpret results</li>
+      </ul>
+    </li>
+  </ol>
+</div>
+
+<!-- 9 -->
+<!-- DBMS Lab -->
+<div class="subject">
+  🗄️ Database Management Systems Lab
+</div>
+
+<div class="units">
+  <ol>
+    <li>
+      <strong>Introduction to Databases</strong>
+      <ul>
+        <li>Introduction to DBMS and database applications</li>
+        <li>Database users and database system architecture</li>
+        <li>Data models and schemas</li>
+      </ul>
+    </li>
+
+    <li>
+      <strong>Entity–Relationship (ER) Modeling</strong>
+      <ul>
+        <li>Design ER diagrams for real-world applications</li>
+        <li>Entities, attributes, relationships</li>
+        <li>Constraints: keys, cardinality and participation</li>
+      </ul>
+    </li>
+
+    <li>
+      <strong>Relational Model</strong>
+      <ul>
+        <li>Relational schema and integrity constraints</li>
+        <li>Primary key, foreign key and candidate key</li>
+        <li>Mapping ER diagrams to relational tables</li>
+      </ul>
+    </li>
+
+    <li>
+      <strong>SQL – Data Definition Language (DDL)</strong>
+      <ul>
+        <li>CREATE, ALTER, DROP tables</li>
+        <li>Constraints: NOT NULL, UNIQUE, CHECK, PRIMARY KEY</li>
+      </ul>
+    </li>
+
+    <li>
+      <strong>SQL – Data Manipulation Language (DML)</strong>
+      <ul>
+        <li>INSERT, UPDATE, DELETE operations</li>
+        <li>SELECT queries with WHERE, ORDER BY, GROUP BY</li>
+      </ul>
+    </li>
+
+    <li>
+      <strong>SQL – Advanced Queries</strong>
+      <ul>
+        <li>Joins: Inner, Left, Right and Full joins</li>
+        <li>Subqueries and nested queries</li>
+        <li>Aggregate functions</li>
+      </ul>
+    </li>
+
+    <li>
+      <strong>Normalization</strong>
+      <ul>
+        <li>Functional dependencies</li>
+        <li>Normalization up to 3NF and BCNF</li>
+        <li>Elimination of anomalies</li>
+      </ul>
+    </li>
+
+    <li>
+      <strong>Views and Indexes</strong>
+      <ul>
+        <li>Create and use views</li>
+        <li>Indexes for performance improvement</li>
+      </ul>
+    </li>
+
+    <li>
+      <strong>Transactions and Concurrency Control</strong>
+      <ul>
+        <li>ACID properties</li>
+        <li>Commit and rollback</li>
+        <li>Concurrency control problems</li>
+      </ul>
+    </li>
+
+    <li>
+      <strong>PL/SQL / Stored Procedures</strong>
+      <ul>
+        <li>Stored procedures and functions</li>
+        <li>Triggers and cursors</li>
+        <li>Exception handling</li>
+      </ul>
+    </li>
+
+    <li>
+      <strong>Mini Project</strong>
+      <ul>
+        <li>Design and implement a database application</li>
+        <li>Apply ER modeling, SQL queries and normalization</li>
+        <li>Generate reports from database</li>
+      </ul>
+    </li>
+  </ol>
+</div>
+</div>
+</div>
+
+
+<div class="year-block year-3">
+<div class="sem-block sem-3-1">
+
+  <h2>🔴 III B.Tech – I Semester (3-1)</h2>
+
+  <!-- Core Subjects -->
+  <div class="subject">🧠 Natural Language Processing</div>
+  <div class="subject">💻 Operating Systems & System Programming</div>
+  <div class="subject">👁️ Computer Vision & Image Processing</div>
+  <div class="subject">📊 Exploratory Data Analysis with Python</div>
+  <div class="subject">🤖 Computational Intelligence</div>
+   <div class="side-heading">🧪 Labs</div>
+
+      <div class="subject">🔬 Computer Vision & Machine Learning Lab</div>
+      <div class="subject">⚙️ AI & System Programming Lab</div>
+      <div class="subject">🌐 Full Stack Development – II lab</div>
+      <div class="subject">🛠️ Tinkering Lab</div>
+<div class="side-heading">🧠Electives </div>
+
+  <!-- Open Elective - I -->
+  <div class="subject">🎯 Open Elective – I</div>
+  <div class="units">
+    <ul>
+      <li>📐 Mathematics for AI & ML</li>
+      <li>🚀 Entrepreneurship & New Venture Creation</li>
+    </ul>
+  </div>
+
+  <!-- Professional Elective - I -->
+  <div class="subject">🎯 Professional Elective – I</div>
+  <div class="units">
+    <ul>
+      <li>📊 Data Visualization</li>
+      <li>🧠 Soft Computing</li>
+    </ul>
+  </div>
+</div>
+<div class="sem-block sem-3-2">
+
+  <h2>🔴 III B.Tech – II Semester (3-2)</h2>
+
+  <!-- Core Subjects -->
+  <div class="subject">☁️ Cloud Computing for AI</div>
+  <div class="subject">📊 Big Data Analytics & AI Applications</div>
+  <div class="subject">🌐 Full Stack AI Development</div>
+  <div class="side-heading">🧪 Labs</div>
+<div class="subject"> 🔬Big Data & Cloud Computing Lab</div>
+<div class="subject">🌐 Full Stack AI Lab</div>
+<div class="subject">🧠Soft Skills</div>
+<div class="subject"> 📝Technical Paper Writing & IPR</div>
+ <div class="subject">  🏭 Industry Internship</div> 
+<!-- Professional Elective - II -->
+<div class="side-heading">🧠Electives </div>
+
+  <div class="subject">🎯 Professional Elective – II</div>
+  <div class="units">
+    <ul>
+      <li>🧠 Graph Neural Networks</li>
+      <li>🎯 Recommender Systems</li>
+      <li>📈 Predictive Analytics</li>
+      <li>🔗 Blockchain for AI</li>
+    </ul>
+  </div>
+<!-- Professional Elective - III -->
+  <div class="subject">🎯 Professional Elective – III</div>
+  <div class="units">
+    <ul>
+      <li>⚛️ Quantum Computing</li>
+      <li>💰 AI for Finance</li>
+      <li>🌍 Social Network Analysis</li>
+      <li>🔐 Cybersecurity & AI-Driven Threat Detection</li>
+    </ul>
+  </div>
+<!-- Open Elective - II -->
+  <div class="subject">🌍 Open Elective – II</div>
+  <div class="units">
+    <ul>
+      <li>🚨 Disaster Management</li>
+      <li>🌱 Sustainability in Engineering Practices</li>
+      <li>☀️ Renewable Energy Sources</li>
+      <li>🤖 Automation & Robotics</li>
+      <li>💡 Digital Electronics</li>
+      <li>📐 Optimization Techniques</li>
+      <li>✍️ Academic Writing & Public Speaking</li>
+    </ul>
+  </div>
+</div>
+</div>
+<div class="year-block year-4">
+
+
+<div class="sem-block sem-4-1">
+
+  <h2>🔴 IV B.Tech – I Semester (4-1)</h2>
+
+  <!-- Core Subjects -->
+  <div class="subject">🤖 Generative AI</div>
+  <div class="subject">🏛️ Business Ethics & Corporate Governance</div>
+  <div class="subject">💼 E-Business</div>
+  <div class="subject">📊 Management Science</div>
+<div class="side-heading">🧠Electives </div>
+
+
+  <!-- Professional Elective - IV -->
+  <div class="subject">🎯 Professional Elective – IV</div>
+  <div class="units">
+    <ul>
+      <li>🔍 Explainable AI & Model Interpretability</li>
+      <li>🔐 AI in Cyber Security</li>
+      <li>⚙️ AI-Driven Software Engineering & DevOps</li>
+      <li>🤖 AI for Robotics</li>
+    </ul>
+  </div>
+
+  <!-- Professional Elective - V -->
+  <div class="subject">🎯 Professional Elective – V</div>
+  <div class="units">
+    <ul>
+      <li>🚀 MLOps & AI Model Deployment</li>
+      <li>🧹 Data Wrangling</li>
+      <li>🏥 Healthcare AI</li>
+      <li>🏙️ AI for Smart Cities & IoT Systems</li>
+    </ul>
+  </div>
+
+  <!-- Open Electives -->
+  <div class="subject">🌍 Open Electives</div>
+  <div class="units">
+    <ul>
+      <li>🏗️ Building Materials & Services</li>
+      <li>🌱 Environmental Impact Assessment</li>
+      <li>⚡ Smart Grid Technologies</li>
+      <li>🖨️ 3D Printing Technologies</li>
+      <li>🧠 Microprocessors & Microcontrollers</li>
+      <li>📡 Wavelet Transforms & Applications</li>
+      <li>💼 Employability Skills</li>
+    </ul>
+  </div>
+
+  <!-- Skill & Evaluation -->
+  <div class="side-heading">🧠 Skill & Evaluation</div>
+  <div class="units">
+    <ul>
+      <li>🧩 Prompt Engineering</li>
+      <li>👥 Gender Sensitization</li>
+      <li>🏭 Industry Internship Evaluation</li>
+    </ul>
+  </div>
+
+</div>
+
+
+   <div class="sem-block sem-4-2">
+    <h2>IV B.Tech – II Semester</h2>
+ <div class="subject">Project Phase – II</div>
+ <div class="subject">Internship(24 weeks)</div>
+ 
+</div>
+</div>
+<script>
+let currentYear = null;
+
+/* ======================
+   YEAR SELECTION
+====================== */
+function selectYear(year) {
+  currentYear = year;
+
+  document.getElementById("semesterTabs").style.display = "flex";
+
+  document.querySelectorAll(".year-block").forEach(y => y.style.display = "none");
+  const y = document.querySelector(".year-" + year);
+  if (y) y.style.display = "block";
+
+  document.querySelectorAll(".sem").forEach(s => s.style.display = "none");
+  document.querySelectorAll(".sem-" + year).forEach(s => {
+    s.style.display = "inline-flex";
+  });
+
+  document.querySelectorAll(".sem-block").forEach(s => s.style.display = "none");
+  document.querySelectorAll(".units").forEach(u => u.style.display = "none");
+}
+
+/* ======================
+   SEMESTER SELECTION
+====================== */
+function selectSem(sem) {
+  document.querySelectorAll(".sem-block").forEach(s => s.style.display = "none");
+  const active = document.querySelector(".sem-" + sem);
+  if (active) active.style.display = "block";
+}
+
+/* ======================
+   SUBJECT CLICK
+====================== */
+document.addEventListener("click", e => {
+  const subject = e.target.closest(".subject");
+  if (!subject) return;
+
+  // Year 3 & 4 → info popup only
+  if (currentYear === 3 || currentYear === 4) {
+    showPopup("⚠️ Detailed syllabus will be updated soon 🙂");
+    return;
+  }
+
+  const units = subject.nextElementSibling;
+  if (!units || !units.classList.contains("units")) return;
+
+  document.querySelectorAll(".units").forEach(u => {
+    if (u !== units) u.style.display = "none";
+  });
+
+  units.style.display =
+    units.style.display === "block" ? "none" : "block";
+});
+
+/* ======================
+   POPUP
+====================== */
+function showPopup(text) {
+  const old = document.querySelector(".popup");
+  if (old) old.remove();
+
+  const popup = document.createElement("div");
+  popup.className = "popup";
+  popup.innerHTML = `<div class="popup-box">${text}</div>`;
+  document.body.appendChild(popup);
+
+  setTimeout(() => popup.remove(), 2500);
+}
+
+/* ======================
+   CONFETTI
+====================== */
+function partyBlast() {
+  if (typeof confetti === "undefined") return;
+  confetti({
+    particleCount: 200,
+    spread: 120,
+    origin: { y: 0.6 }
+  });
+}
+
+/* ======================
+   PAGE LOAD
+====================== */
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("semesterTabs").style.display = "none";
+  document.querySelectorAll(".year-block,.sem-block,.units")
+    .forEach(e => e.style.display = "none");
+
+  showPopup("🚀 Your AI journey begins here – select a year");
+  partyBlast();
+  setInterval(partyBlast, 5000);
+});
+
+/* Party on button click */
+document.addEventListener("click", e => {
+  if (e.target.tagName === "BUTTON") partyBlast();
+});
+</script>
+</body>
+</html>
+
